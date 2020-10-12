@@ -4,29 +4,35 @@ package model;
 public class Song {
 
     // Represents the songs name, artist, and whether or not the song is over
-    private String songName;
     private String artist;
+    private String songName;
+
     private String isSongOver;
 
     // sets the song name, artist, and if the song is over
-    public Song(String songName, String artist, String isSongOver) {
-        this.songName = songName;
+    public Song(String artist, String songName, String isSongOver) {
         this.artist = artist;
+        this.songName = songName;
+
         this.isSongOver = isSongOver;
     }
 
-    public String getSongName() {
-        return songName;
-    }
 
 
     public String getArtist() {
         return artist;
     }
 
+    public String getSongName() {
+        return songName;
+    }
+
     public String getIsSongOver() {
         return isSongOver;
     }
+
+
+
 
 
     public boolean checkIsSongOver() {

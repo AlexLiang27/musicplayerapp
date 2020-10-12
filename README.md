@@ -24,4 +24,6 @@ something similar and to play user-created playlists
 - As a user, I want to be able to pause the song from the playlist
 - As a user, I want to be able to skip the song and go to the next
 - As a user, I want to be able to add multiple songs to the playlist
+- As a user, I want to be able to change the volume of the song
+- As a user, I want to be able to shuffle the songs in the playlist
 
