@@ -1,12 +1,13 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 // playlist is a list with the songs
 
 public class Playlist {
 
-    private ArrayList<Song> playList;
+    private final ArrayList<Song> playList;
 
     // constructs an empty playlist
     public Playlist() {
@@ -20,26 +21,32 @@ public class Playlist {
         if (playList.size() >= 1) {
             return playList.get(0);
         }
+
         return null;
     }
 
-    //EFFECT: returns the playlist
-    public ArrayList<Song> getPlayList() {
-        return playList;
-    }
 
     //EFFECT: returns the song in the playlist with given index
     public Song getSongInPlaylist(int index) {
         return playList.get(index);
     }
 
+    //MODIFIES: this
+    //EFFECT: returns the index + 1 (so the position) of the song in the playlist
+    public int getSongPosition(Song song) {
+        return playList.indexOf(song) + 1;
+    }
 
+
+    //USER STORY (multiple y's into x)
     //MODIFIES: this
     //EFFECT: adds a song to the array/playlist
-    public void addSong(Song song) {
+    public void addSongToPlaylist(Song song) {
         playList.add(song);
     }
 
+
+    //USER STORY
     //REQUIRES: playList.size() >= 2
     //MODIFIES: this
     //EFFECT: skips the song to the next song in the playlist and moves the skipped song to the end of the list
@@ -48,26 +55,34 @@ public class Playlist {
             Song temp = playList.get(0);
             playList.get(0).setIsSongOver("true");
             playList.remove(0);
-            playList.add((playList.size()-1), temp);
+            playList.add(temp);
         }
 
 
     }
 
+    //USER STORY
+    //learned to shuffle a list https://www.geeksforgeeks.org/shuffle-or-randomize-a-list-in-java/
+    //REQUIRES: playList.size() > 1
     //MODIFIES: this
-    //EFFECT: returns the index+1 (position) of the song in the playlist
-    public int getSongPosition(Song song) {
-       return playList.indexOf(song)+1;
+    //EFFECT: shuffles the list of songs in the playlist
+    public void shufflePlaylist() {
+        if (playList.size() > 1) {
+            Collections.shuffle(playList);
+
+        }
     }
 
 
-
-
-
-
-
-
-
+    //USER STORY
+    //REQUIRES: playList.size() >= 1
+    //MODIFIES: this
+    //EFFECT: removes the song from the playlist
+    public void removeSong(Song song) {
+        if (playList.size() >= 1) {
+            playList.remove(song);
+        }
+    }
 
 
 }

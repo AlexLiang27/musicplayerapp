@@ -6,17 +6,14 @@ public class Song {
     // Represents the songs name, artist, and whether or not the song is over
     private String artist;
     private String songName;
-
     private String isSongOver;
 
-    // sets the song name, artist, and if the song is over
+    // sets the song name, artist, and whether or not if the song is over
     public Song(String artist, String songName, String isSongOver) {
         this.artist = artist;
         this.songName = songName;
-
         this.isSongOver = isSongOver;
     }
-
 
 
     public String getArtist() {
@@ -32,9 +29,6 @@ public class Song {
     }
 
 
-
-
-
     public boolean checkIsSongOver() {
         return isSongOver.equals("true");
 
@@ -46,11 +40,6 @@ public class Song {
 
 
     }
-
-
-
-
-
 
 
 }

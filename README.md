@@ -9,7 +9,7 @@ and my first idea that came to my mind was to create a
 functional music player. My application will do the following:
 
 
-- run and import music files from within a user created playlist
+- run and import music files 
 - be able to have a functioning play/pause, skip, volume slider,
 - anyone can use it, regardless of music tastes and age
 - simple ui, easy to access
@@ -24,6 +24,7 @@ something similar and to play user-created playlists
 - As a user, I want to be able to pause the song from the playlist
 - As a user, I want to be able to skip the song and go to the next
 - As a user, I want to be able to add multiple songs to the playlist
-- As a user, I want to be able to change the volume of the song
+- As a user, I want to be able to remove a song from the playlist
 - As a user, I want to be able to shuffle the songs in the playlist
+- As a user, I want to be able to repeat the same song
 
