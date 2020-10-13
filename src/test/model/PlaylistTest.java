@@ -6,8 +6,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaylistTest {
 
@@ -100,7 +99,7 @@ public class PlaylistTest {
 
     @Test
     void testEmptyPlaylist() {
-        assertEquals(null, testEmptyPlaylist.getCurrentSong());
+        assertNull(testEmptyPlaylist.getCurrentSong());
     }
 
 

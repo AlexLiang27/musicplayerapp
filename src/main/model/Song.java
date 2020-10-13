@@ -8,11 +8,13 @@ public class Song {
     private String songName;
     private String isSongOver;
 
+
     // sets the song name, artist, and whether or not if the song is over
     public Song(String artist, String songName, String isSongOver) {
         this.artist = artist;
         this.songName = songName;
         this.isSongOver = isSongOver;
+
     }
 
 
@@ -37,7 +39,6 @@ public class Song {
 
     public void setIsSongOver(String isSongOver) {
         this.isSongOver = isSongOver;
-
 
     }
 
