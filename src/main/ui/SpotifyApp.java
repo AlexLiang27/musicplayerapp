@@ -76,11 +76,11 @@ public class SpotifyApp {
     //EFFECTS: initializes songs and playlist
     private void init() {
         myPlaylist = new Playlist();
-        mySong1 = new Song("ILLENIUM", "Nightlight", "true");
-        mySong2 = new Song("ARMNHMR", "Here With Me", "true");
-        mySong3 = new Song("Dabin", "Rings & Roses", "true");
-        mySong4 = new Song("ILLENIUM", "Crawl Outta Love", "true");
-        mySong5 = new Song("Nurko", "Better Off Lonely", "true");
+        mySong1 = new Song("ILLENIUM", "Nightlight", true);
+        mySong2 = new Song("ARMNHMR", "Here With Me", true);
+        mySong3 = new Song("Dabin", "Rings & Roses", true);
+        mySong4 = new Song("ILLENIUM", "Crawl Outta Love", true);
+        mySong5 = new Song("Nurko", "Better Off Lonely", true);
 
 
     }

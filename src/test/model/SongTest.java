@@ -15,24 +15,24 @@ public class SongTest {
 
     @BeforeEach
     void runBefore() {
-        testSong1 = new Song("ILLENIUM", "Nightlight", "false");
-        testSong2 = new Song("ARMNHMR", "Here With Me", "true");
-        testSong3 = new Song("Dabin", "Rings & Roses", "true");
+        testSong1 = new Song("ILLENIUM", "Nightlight", false);
+        testSong2 = new Song("ARMNHMR", "Here With Me", true);
+        testSong3 = new Song("Dabin", "Rings & Roses", true);
     }
 
     @Test
     void testConstructor() {
         assertEquals("ILLENIUM", testSong1.getArtist());
         assertEquals("Nightlight", testSong1.getSongName());
-        assertEquals("false", testSong1.getIsSongOver());
+        assertEquals(false, testSong1.getIsSongOver());
 
         assertEquals("ARMNHMR", testSong2.getArtist());
         assertEquals("Here With Me", testSong2.getSongName());
-        assertEquals("true", testSong2.getIsSongOver());
+        assertEquals(true, testSong2.getIsSongOver());
 
         assertEquals("Dabin", testSong3.getArtist());
         assertEquals("Rings & Roses", testSong3.getSongName());
-        assertEquals("true", testSong3.getIsSongOver());
+        assertEquals(true, testSong3.getIsSongOver());
 
 
     }
@@ -43,11 +43,11 @@ public class SongTest {
         assertFalse(testSong1.checkIsSongOver());
         assertTrue(testSong2.checkIsSongOver());
         assertTrue(testSong3.checkIsSongOver());
-        testSong1.setIsSongOver("true");
+        testSong1.setIsSongOver(true);
         assertTrue(testSong1.checkIsSongOver());
-        testSong2.setIsSongOver("false");
+        testSong2.setIsSongOver(false);
         assertFalse(testSong2.checkIsSongOver());
-        testSong3.setIsSongOver("false");
+        testSong3.setIsSongOver(false);
         assertFalse(testSong3.checkIsSongOver());
 
     }

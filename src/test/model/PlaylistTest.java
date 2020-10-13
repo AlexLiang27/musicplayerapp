@@ -24,11 +24,11 @@ public class PlaylistTest {
         testPlaylist = new Playlist();
         testEmptyPlaylist = new Playlist();
 
-        testSongInPlaylist1 = new Song("ILLENIUM", "Nightlight", "false");
-        testSongInPlaylist2 = new Song("ARMNHMR", "Here With Me", "true");
-        testSongInPlaylist3 = new Song("Dabin", "Rings & Roses", "true");
+        testSongInPlaylist1 = new Song("ILLENIUM", "Nightlight", false);
+        testSongInPlaylist2 = new Song("ARMNHMR", "Here With Me", true);
+        testSongInPlaylist3 = new Song("Dabin", "Rings & Roses", true);
 
-        testSongInPlaylist4 = new Song("Nurko", "Better Off Lonely", "true");
+        testSongInPlaylist4 = new Song("Nurko", "Better Off Lonely", true);
 
         testPlaylist.addSongToPlaylist(testSongInPlaylist1);
         testPlaylist.addSongToPlaylist(testSongInPlaylist2);
@@ -86,7 +86,6 @@ public class PlaylistTest {
         assertFalse(testEmptyPlaylist.shufflePlaylist());
 
 
-
     }
 
 
@@ -105,8 +104,6 @@ public class PlaylistTest {
     void testEmptyPlaylist() {
         assertNull(testEmptyPlaylist.getCurrentSong());
     }
-
-
 
 
 }
