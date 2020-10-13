@@ -3,6 +3,7 @@ package model;
 
 // followed the AccountTest example format to guide my way through tests
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +57,7 @@ public class PlaylistTest {
         testPlaylist.skipSong();
         assertEquals(testSongInPlaylist1, testPlaylist.getCurrentSong());
 
-
+        assertFalse(testEmptyPlaylist.skipSong());
     }
 
 
@@ -82,6 +83,9 @@ public class PlaylistTest {
         testPlaylistClone.shufflePlaylist();
         assertFalse(testPlaylist.equals(testPlaylistClone));
 
+        assertFalse(testEmptyPlaylist.shufflePlaylist());
+
+
 
     }
 
@@ -93,7 +97,7 @@ public class PlaylistTest {
         testPlaylist.skipSong();
         assertEquals(testSongInPlaylist3, testPlaylist.getCurrentSong());
 
-
+        assertFalse(testEmptyPlaylist.removeSong(testSongInPlaylist1));
     }
 
 
@@ -101,6 +105,8 @@ public class PlaylistTest {
     void testEmptyPlaylist() {
         assertNull(testEmptyPlaylist.getCurrentSong());
     }
+
+
 
 
 }

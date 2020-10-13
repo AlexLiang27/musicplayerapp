@@ -7,7 +7,7 @@ import java.util.Collections;
 
 public class Playlist {
 
-    private final ArrayList<Song> playList;
+    private ArrayList<Song> playList;
 
     // constructs an empty playlist
     public Playlist() {
@@ -50,27 +50,26 @@ public class Playlist {
     //REQUIRES: playList.size() >= 2
     //MODIFIES: this
     //EFFECT: skips the song to the next song in the playlist and moves the skipped song to the end of the list
-    public void skipSong() {
+    public boolean skipSong() {
         if (playList.size() >= 2) {
             Song temp = playList.get(0);
             playList.get(0).setIsSongOver("true");
             playList.remove(0);
             playList.add(temp);
         }
-
-
+        return false;
     }
 
     //USER STORY
     //learned to shuffle a list https://www.geeksforgeeks.org/shuffle-or-randomize-a-list-in-java/
-    //REQUIRES: playList.size() > 1
+    //REQUIRES: playList.size() >= 1
     //MODIFIES: this
     //EFFECT: shuffles the list of songs in the playlist
-    public void shufflePlaylist() {
-        if (playList.size() > 1) {
+    public boolean shufflePlaylist() {
+        if (playList.size() >= 1) {
             Collections.shuffle(playList);
-
         }
+        return false;
     }
 
 
@@ -78,13 +77,12 @@ public class Playlist {
     //REQUIRES: playList.size() >= 1
     //MODIFIES: this
     //EFFECT: removes the song from the playlist
-    public void removeSong(Song song) {
+    public boolean removeSong(Song song) {
         if (playList.size() >= 1) {
             playList.remove(song);
         }
+        return false;
     }
-
-
 }
 
 

@@ -87,7 +87,7 @@ public class SpotifyApp {
 
     //EFFECTS: displays menu of options to user
     private void displayMenu() {
-        System.out.println("\nSelect from: (MUST ADD SONGS FIRST TIME RUNNING)");
+        System.out.println("\nSelect from: (MUST ADD SONGS FIRST TIME RUNNING PROGRAM)");
         System.out.println("\ta -> add songs to playlist");
         System.out.println("\tp -> play the song");
         System.out.println("\to -> pause the song");
