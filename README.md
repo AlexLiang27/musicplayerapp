@@ -1,4 +1,4 @@
-# Music Player Application
+# Spotify Application
 
 
 ## Alex Liang | CPSC 210 | 2020W1
