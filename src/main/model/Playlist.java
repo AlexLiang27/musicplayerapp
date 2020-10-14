@@ -9,14 +9,13 @@ public class Playlist {
 
     private ArrayList<Song> playList;
 
-    // constructs an empty playlist
+    //EFFECTS: constructs an empty playlist
     public Playlist() {
         playList = new ArrayList<>();
     }
 
 
     //REQUIRES: a song in the playlist
-    //MODIFIES: this
     //EFFECT: gets the current song in position 0 of the list
     public Song getCurrentSong() {
         if (playList.size() >= 1) {
@@ -32,7 +31,6 @@ public class Playlist {
     }
 
     //REQUIRES: a song in the playlist
-    //MODIFIES: this
     //EFFECT: returns the index + 1 (so the position) of the song in the playlist
     public int getSongPosition(Song song) {
         return playList.indexOf(song) + 1;

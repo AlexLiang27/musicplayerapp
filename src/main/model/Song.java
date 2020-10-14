@@ -9,7 +9,7 @@ public class Song {
     private boolean isSongOver;
 
 
-    // sets the song name, artist, and whether or not if the song is over
+    //EFFECTS: sets the song name, artist, and whether or not if the song is over
     public Song(String artist, String songName, boolean isSongOver) {
         this.artist = artist;
         this.songName = songName;
@@ -17,17 +17,17 @@ public class Song {
 
     }
 
-
+    //EFFECTS: gets the current songs artist
     public String getArtist() {
         return artist;
     }
 
-
+    //EFFECTS: gets the current songs name
     public String getSongName() {
         return songName;
     }
 
-
+    //EFFECTS: gets true or false whether or not the song is over
     public boolean getIsSongOver() {
         return isSongOver;
     }
@@ -39,6 +39,7 @@ public class Song {
 
     }
 
+    //MODIFIES: this
     //EFFECTS: sets the song to over
     public void setIsSongOver(boolean isSongOver) {
         this.isSongOver = isSongOver;

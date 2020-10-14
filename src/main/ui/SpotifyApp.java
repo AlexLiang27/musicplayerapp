@@ -99,7 +99,7 @@ public class SpotifyApp {
     }
 
     //MODIFIES: this
-    //EFFECTS:
+    //EFFECTS: adds songs to the playlist
     private void add() {
         myPlaylist.addSongToPlaylist(mySong1);
         myPlaylist.addSongToPlaylist(mySong2);
@@ -111,7 +111,8 @@ public class SpotifyApp {
 
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: skips the current song to the next
     private void skip() {
         myPlaylist.skipSong();
         System.out.println("Song skipped");
@@ -119,7 +120,8 @@ public class SpotifyApp {
 
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: shuffles the playlist
     private void shuffle() {
         myPlaylist.shufflePlaylist();
         System.out.println("Shuffling playlist");
@@ -127,25 +129,30 @@ public class SpotifyApp {
 
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: removes the song from the playlist
     private void remove() {
         myPlaylist.removeSong(myPlaylist.getCurrentSong());
         System.out.println("Removed current song");
 
     }
 
-
+    //loops the song
     private void loop() {
         System.out.println("Repeating song");
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: pauses the current song
     private void pause() {
         System.out.println("Paused " + myPlaylist.getCurrentSong().getSongName() + " - "
                 + myPlaylist.getCurrentSong().getArtist());
 
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: plays the current song
     private void play() {
         System.out.println("Playing " + myPlaylist.getCurrentSong().getSongName() + " - "
                 + myPlaylist.getCurrentSong().getArtist());
