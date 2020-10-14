@@ -15,6 +15,7 @@ public class Playlist {
     }
 
 
+    //REQUIRES: a song in the playlist
     //MODIFIES: this
     //EFFECT: gets the current song in position 0 of the list
     public Song getCurrentSong() {
@@ -24,12 +25,13 @@ public class Playlist {
         return null;
     }
 
-
+    //REQUIRES: a song in the playlist
     //EFFECT: returns the song in the playlist with given index
     public Song getSongInPlaylist(int index) {
         return playList.get(index);
     }
 
+    //REQUIRES: a song in the playlist
     //MODIFIES: this
     //EFFECT: returns the index + 1 (so the position) of the song in the playlist
     public int getSongPosition(Song song) {
@@ -38,6 +40,7 @@ public class Playlist {
 
 
     //USER STORY (multiple y's into x)
+    //REQUIRES: a playlist
     //MODIFIES: this
     //EFFECT: adds a song to the playlist
     public void addSongToPlaylist(Song song) {

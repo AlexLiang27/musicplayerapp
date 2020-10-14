@@ -22,21 +22,24 @@ public class Song {
         return artist;
     }
 
+
     public String getSongName() {
         return songName;
     }
+
 
     public boolean getIsSongOver() {
         return isSongOver;
     }
 
 
+    //EFFECTS: return true if the song is over, otherwise return false
     public boolean checkIsSongOver() {
         return isSongOver == true;
 
     }
 
-
+    //EFFECTS: sets the song to over
     public void setIsSongOver(boolean isSongOver) {
         this.isSongOver = isSongOver;
 
