@@ -6,7 +6,7 @@ import java.util.Collections;
 // playlist is a list of songs
 
 public class Playlist {
-
+    // playlist is a list of songs
     private ArrayList<Song> playList;
 
     //EFFECTS: constructs an empty playlist

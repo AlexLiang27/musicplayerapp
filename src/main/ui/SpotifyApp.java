@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class SpotifyApp {
 
     private Playlist myPlaylist;
+    private Playlist myLiked;
     private Song mySong1;
     private Song mySong2;
     private Song mySong3;
@@ -76,6 +77,7 @@ public class SpotifyApp {
     //EFFECTS: initializes songs and playlist
     private void init() {
         myPlaylist = new Playlist();
+        myLiked = new Playlist();
         mySong1 = new Song("ILLENIUM", "Nightlight", true);
         mySong2 = new Song("ARMNHMR", "Here With Me", true);
         mySong3 = new Song("Dabin", "Rings & Roses", true);
@@ -101,6 +103,7 @@ public class SpotifyApp {
     //MODIFIES: this
     //EFFECTS: adds songs to the playlist
     private void add() {
+
         myPlaylist.addSongToPlaylist(mySong1);
         myPlaylist.addSongToPlaylist(mySong2);
         myPlaylist.addSongToPlaylist(mySong3);
