@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -84,6 +87,34 @@ public class Playlist {
         }
         return false;
     }
+
+
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Your Spotify Playlist! Hell yeah!!! :D", playList);
+
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray playlistToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (int i=0; i< playList.size(); i++) {
+            jsonArray.put(playList.get(i));
+        }
+
+        return jsonArray;
+
+
+    }
+
+
+
+
+
+
 }
 
 

@@ -4,14 +4,17 @@ package ui;
 
 import model.Playlist;
 import model.Song;
+import persistence.JsonWriter;
 
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
 // Spotify application
 public class SpotifyApp {
 
+    private static final String JSON_STORE = "./data/playlist.json";
     private Playlist myPlaylist;
     private Playlist myLiked;
     private Song mySong1;
@@ -20,10 +23,13 @@ public class SpotifyApp {
     private Song mySong4;
     private Song mySong5;
     private Scanner input;
+    private JsonWriter jsonWriter;
 
     //EFFECTS: runs the Spotify application
     public SpotifyApp() {
+        jsonWriter = new JsonWriter(JSON_STORE);
         runSpotify();
+
     }
 
 
@@ -67,6 +73,8 @@ public class SpotifyApp {
             shuffle();
         } else if (command.equals("r")) {
             remove();
+        } else if (command.equals("save")){
+            savePlaylist();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -98,6 +106,7 @@ public class SpotifyApp {
         System.out.println("\ts -> shuffle playlist");
         System.out.println("\tl -> repeat the song");
         System.out.println("\tq -> quit the program");
+        System.out.println("\tsave -> save playlist");
     }
 
     //MODIFIES: this
@@ -162,6 +171,19 @@ public class SpotifyApp {
 
 
     }
+
+    // EFFECTS: saves the workroom to file
+    private void savePlaylist() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(myPlaylist);
+            jsonWriter.close();
+            System.out.println("Saved Playlist" + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
 
 }
 
