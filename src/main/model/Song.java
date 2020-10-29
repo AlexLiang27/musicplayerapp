@@ -1,7 +1,10 @@
 package model;
 
 
-public class Song {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Song implements Writable {
 
     // Represents the songs name, artist, and whether or not the song is over
     private String artist;
@@ -45,6 +48,18 @@ public class Song {
         this.isSongOver = isSongOver;
 
     }
+
+
+    //used method from jsondemo
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("artist", artist);
+        json.put("songName", songName);
+        json.put("isSongOver", isSongOver);
+        return json;
+    }
+
 
 
 }

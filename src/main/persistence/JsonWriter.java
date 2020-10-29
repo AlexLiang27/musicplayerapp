@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+
+//MODELLED THIS CLASS FROM THE DEMO EXAMPLE GIVEN
 // Represents a writer that writes JSON representation of workroom to file
 public class JsonWriter {
     private static final int TAB = 4;
@@ -27,8 +29,8 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of workroom to file
-    public void write(Playlist playlist) {
-        JSONObject json = playlist.toJson();
+    public void write(Playlist pl) {
+        JSONObject json = pl.toJson();
         saveToFile(json.toString(TAB));
     }
 

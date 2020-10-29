@@ -2,18 +2,21 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 // playlist is a list of songs
 
-public class Playlist {
+public class Playlist implements Writable {
     // playlist is a list of songs
     private ArrayList<Song> playList;
 
+
     //EFFECTS: constructs an empty playlist
     public Playlist() {
+
         playList = new ArrayList<>();
     }
 
@@ -90,6 +93,8 @@ public class Playlist {
 
 
 
+    //used method from jsondemo
+    @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("Your Spotify Playlist! Hell yeah!!! :D", playList);

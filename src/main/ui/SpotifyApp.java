@@ -4,10 +4,12 @@ package ui;
 
 import model.Playlist;
 import model.Song;
+import persistence.JsonReader;
 import persistence.JsonWriter;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -24,10 +26,12 @@ public class SpotifyApp {
     private Song mySong5;
     private Scanner input;
     private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     //EFFECTS: runs the Spotify application
-    public SpotifyApp() {
+    public SpotifyApp() throws FileNotFoundException{
         jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runSpotify();
 
     }
@@ -73,8 +77,10 @@ public class SpotifyApp {
             shuffle();
         } else if (command.equals("r")) {
             remove();
-        } else if (command.equals("save")){
+        } else if (command.equals("save")) {
             savePlaylist();
+        } else if (command.equals ("load")) {
+            loadPlaylist();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -107,6 +113,7 @@ public class SpotifyApp {
         System.out.println("\tl -> repeat the song");
         System.out.println("\tq -> quit the program");
         System.out.println("\tsave -> save playlist");
+        System.out.println("\tload -> load playlist");
     }
 
     //MODIFIES: this
@@ -172,7 +179,9 @@ public class SpotifyApp {
 
     }
 
-    // EFFECTS: saves the workroom to file
+
+    // used method and modelled from the jsondemo
+    // EFFECTS: saves the playlist to file
     private void savePlaylist() {
         try {
             jsonWriter.open();
@@ -184,7 +193,17 @@ public class SpotifyApp {
         }
     }
 
-
+    //used method and modelled from the jsondemo
+    // MODIFIES: this
+    // EFFECTS: loads the playlist from file
+    private void loadPlaylist() {
+        try {
+            myPlaylist = jsonReader.read();
+            System.out.println("Loaded playlist" + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
 }
 
 
