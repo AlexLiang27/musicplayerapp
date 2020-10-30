@@ -66,8 +66,10 @@ public class PlaylistTest {
         assertEquals(1, testPlaylist.getSongPosition(testSongInPlaylist1));
         assertEquals(2, testPlaylist.getSongPosition(testSongInPlaylist2));
         assertEquals(3, testPlaylist.getSongPosition(testSongInPlaylist3));
+        assertEquals(3, testPlaylist.size());
         testPlaylist.addSongToPlaylist(testSongInPlaylist4);
         assertEquals(4, testPlaylist.getSongPosition(testSongInPlaylist4));
+        assertEquals(4, testPlaylist.size());
 
     }
 
@@ -104,6 +106,7 @@ public class PlaylistTest {
     void testEmptyPlaylist() {
         assertNull(testEmptyPlaylist.getCurrentSong());
     }
+
 
 
 }

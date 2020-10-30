@@ -80,6 +80,10 @@ public class Playlist implements Writable {
     }
 
 
+    public int size() {
+        return playList.size();
+    }
+
     //USER STORY
     //MODIFIES: this
     //EFFECT: removes the song from the playlist and returns true, otherwise false
