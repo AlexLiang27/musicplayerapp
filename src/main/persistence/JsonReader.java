@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 //MODELLED THIS CLASS FROM THE DEMO EXAMPLE GIVEN
-// Represents a reader that reads workroom from JSON data stored in file
+// Represents a reader that reads playlist from JSON data stored in file
 public class JsonReader {
     private String source;
 
@@ -22,7 +22,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads playlist from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Playlist read() throws IOException {
         String jsonData = readFile(source);

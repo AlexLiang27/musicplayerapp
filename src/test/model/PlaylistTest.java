@@ -108,5 +108,13 @@ public class PlaylistTest {
     }
 
 
+    @Test
+    void testJsonStuff() {
+
+
+
+
+    }
+
 
 }

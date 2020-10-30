@@ -100,17 +100,17 @@ public class Playlist implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("Your Spotify Playlist! Hell yeah!!! :D", playList);
+        json.put("Your Spotify Playlist! Hell yeah!!! :D", playlistToJson());
 
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns things in this playlist as a JSON array
     private JSONArray playlistToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (int i = 0; i < playList.size(); i++) {
-            jsonArray.put(playList.get(i));
+            jsonArray.put(playList.get(i).toJson());
         }
 
         return jsonArray;
