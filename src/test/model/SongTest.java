@@ -2,6 +2,7 @@ package model;
 
 // followed the AccountTest example format to guide my way through tests
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,5 +53,19 @@ public class SongTest {
 
     }
 
+
+    @Test
+    void testToJson() {
+
+        JSONObject obj = testSong1.toJson();
+        assertEquals(obj.getString("artist"), testSong1.getArtist());
+        assertEquals(obj.getString("songName"), testSong1.getSongName());
+        assertEquals(obj.getBoolean("isSongOver"), testSong1.getIsSongOver());
+        assertEquals(JSONObject.getNames(obj).length, 3);
+
+
+
+
+    }
 
 }

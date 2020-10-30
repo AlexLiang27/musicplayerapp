@@ -12,14 +12,18 @@ import java.util.Collections;
 public class Playlist implements Writable {
     // playlist is a list of songs
     private ArrayList<Song> playList;
+    private String name;
 
 
     //EFFECTS: constructs an empty playlist
-    public Playlist() {
-
+    public Playlist(String name) {
+        this.name = name;
         playList = new ArrayList<>();
     }
 
+    public String getName() {
+        return name;
+    }
 
     //REQUIRES: a song in the playlist
     //EFFECT: gets the current song in position 0 of the list
@@ -100,17 +104,18 @@ public class Playlist implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("Your Spotify Playlist! Hell yeah!!! :D", playlistToJson());
-
+        json.put("name", name);
+        json.put("songs", playlistToJson());
         return json;
     }
 
     // EFFECTS: returns things in this playlist as a JSON array
-    private JSONArray playlistToJson() {
+    protected JSONArray playlistToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (int i = 0; i < playList.size(); i++) {
-            jsonArray.put(playList.get(i).toJson());
+        for (Song s : playList) {
+            jsonArray.put(s.toJson());
+
         }
 
         return jsonArray;

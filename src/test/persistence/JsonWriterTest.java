@@ -20,7 +20,7 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            Playlist pl = new Playlist();
+            Playlist pl = new Playlist("playlist");
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
@@ -32,7 +32,7 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterEmptyPlaylist() {
         try {
-            Playlist pl = new Playlist();
+            Playlist pl = new Playlist("playlist");
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyPlaylist.json");
             writer.open();
             writer.write(pl);
@@ -40,6 +40,8 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterEmptyPlaylist.json");
             pl = reader.read();
+            assertEquals("playlist", pl.getName());
+
 
             assertEquals(0, pl.size());
         } catch (IOException e) {
@@ -50,7 +52,7 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterPlaylist() {
         try {
-            Playlist pl = new Playlist();
+            Playlist pl = new Playlist("playlist");
             pl.addSongToPlaylist(new Song("ILLENIUM", "Nightlight", true));
             pl.addSongToPlaylist(new Song("Nurko", "Better Off Lonely", true));
             JsonWriter writer = new JsonWriter("./data/testWriterPlaylist.json");
@@ -60,6 +62,7 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterPlaylist.json");
             pl = reader.read();
+            assertEquals("playlist", pl.getName());
 
 
             assertEquals(2, pl.size());

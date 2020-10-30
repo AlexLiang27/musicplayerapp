@@ -90,8 +90,8 @@ public class SpotifyApp {
     //MODIFIES: this
     //EFFECTS: initializes songs and playlist
     private void init() {
-        myPlaylist = new Playlist();
-        myLiked = new Playlist();
+        myPlaylist = new Playlist("mine");
+        myLiked = new Playlist("liked");
         mySong1 = new Song("ILLENIUM", "Nightlight", true);
         mySong2 = new Song("ARMNHMR", "Here With Me", true);
         mySong3 = new Song("Dabin", "Rings & Roses", true);

@@ -1,12 +1,15 @@
-{"Your Spotify Playlist! Hell yeah!!! :D": [
+{
+  "songs": [
     {
-        "songName": "Nightlight",
-        "artist": "ILLENIUM",
-        "isSongOver": true
+      "songName": "Nightlight",
+      "artist": "ILLENIUM",
+      "isSongOver": true
     },
     {
-        "songName": "Better Off Lonely",
-        "artist": "Nurko",
-        "isSongOver": true
+      "songName": "Better Off Lonely",
+      "artist": "Nurko",
+      "isSongOver": true
     }
-]}
+  ],
+  "name": "playlist"
+}

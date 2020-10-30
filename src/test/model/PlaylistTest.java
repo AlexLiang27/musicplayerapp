@@ -4,6 +4,7 @@ package model;
 // followed the AccountTest example format to guide my way through tests
 
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +22,8 @@ public class PlaylistTest {
 
     @BeforeEach
     void runBefore() {
-        testPlaylist = new Playlist();
-        testEmptyPlaylist = new Playlist();
+        testPlaylist = new Playlist("liked");
+        testEmptyPlaylist = new Playlist("empty");
 
         testSongInPlaylist1 = new Song("ILLENIUM", "Nightlight", false);
         testSongInPlaylist2 = new Song("ARMNHMR", "Here With Me", true);
@@ -76,7 +77,7 @@ public class PlaylistTest {
 
     @Test
     void testShufflePlaylist() {
-        Playlist testPlaylistClone = new Playlist();
+        Playlist testPlaylistClone = new Playlist("clone");
         testPlaylistClone.addSongToPlaylist(testSongInPlaylist1);
         testPlaylistClone.addSongToPlaylist(testSongInPlaylist2);
         testPlaylistClone.addSongToPlaylist(testSongInPlaylist3);
@@ -110,8 +111,8 @@ public class PlaylistTest {
 
     @Test
     void testJsonStuff() {
-
-
+        JSONObject obj = testPlaylist.toJson();
+        assertEquals(obj.get("name"), testPlaylist.getName());
 
 
     }

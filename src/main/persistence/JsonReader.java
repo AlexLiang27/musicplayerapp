@@ -45,8 +45,8 @@ public class JsonReader {
 
     // EFFECTS: parses playlist from JSON object and returns it
     private Playlist parsePlaylist(JSONObject jsonObject) {
-
-        Playlist pl = new Playlist();
+        String name = jsonObject.getString("name");
+        Playlist pl = new Playlist(name);
         addSongs(pl, jsonObject);
         return pl;
 
@@ -56,7 +56,7 @@ public class JsonReader {
     // MODIFIES: pl
     // EFFECTS: parses songs from JSON object and adds them to playlist
     private void addSongs(Playlist pl, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("Your Spotify Playlist! Hell yeah!!! :D");
+        JSONArray jsonArray = jsonObject.getJSONArray("songs");
         for (Object json : jsonArray) {
             JSONObject nextSong = (JSONObject) json;
             addSong(pl, nextSong);
