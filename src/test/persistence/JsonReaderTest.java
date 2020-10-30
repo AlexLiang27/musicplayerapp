@@ -27,7 +27,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderEmptyPlaylist() {
-        JsonReader reader = new JsonReader("./data/testReaderPlaylist.json");
+        JsonReader reader = new JsonReader("./data/testReaderEmptyPlaylist.json");
         try {
             Playlist pl = reader.read();
             assertEquals(0, pl.size());
