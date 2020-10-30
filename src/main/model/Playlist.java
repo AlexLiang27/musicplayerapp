@@ -96,7 +96,6 @@ public class Playlist implements Writable {
     }
 
 
-
     //used method from jsondemo
     @Override
     public JSONObject toJson() {
@@ -110,7 +109,7 @@ public class Playlist implements Writable {
     private JSONArray playlistToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (int i=0; i< playList.size(); i++) {
+        for (int i = 0; i < playList.size(); i++) {
             jsonArray.put(playList.get(i));
         }
 
@@ -118,10 +117,6 @@ public class Playlist implements Writable {
 
 
     }
-
-
-
-
 
 
 }

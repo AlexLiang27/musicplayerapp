@@ -31,8 +31,6 @@ public class JsonReader {
     }
 
 
-
-
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
@@ -74,10 +72,6 @@ public class JsonReader {
         Song song = new Song(artist, songName, isSongOver);
         pl.addSongToPlaylist(song);
     }
-
-
-
-
 
 
 }

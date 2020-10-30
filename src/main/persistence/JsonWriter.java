@@ -24,11 +24,11 @@ public class JsonWriter {
     // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
     // be opened for writing
     public void open() throws FileNotFoundException {
-       writer = new PrintWriter(new File(destination));
+        writer = new PrintWriter(new File(destination));
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of playlist to file
     public void write(Playlist pl) {
         JSONObject json = pl.toJson();
         saveToFile(json.toString(TAB));
