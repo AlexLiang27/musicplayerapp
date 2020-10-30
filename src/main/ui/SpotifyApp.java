@@ -29,7 +29,7 @@ public class SpotifyApp {
     private JsonReader jsonReader;
 
     //EFFECTS: runs the Spotify application
-    public SpotifyApp() throws FileNotFoundException{
+    public SpotifyApp() throws FileNotFoundException {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         runSpotify();
@@ -79,7 +79,7 @@ public class SpotifyApp {
             remove();
         } else if (command.equals("save")) {
             savePlaylist();
-        } else if (command.equals ("load")) {
+        } else if (command.equals("load")) {
             loadPlaylist();
         } else {
             System.out.println("Selection not valid...");
