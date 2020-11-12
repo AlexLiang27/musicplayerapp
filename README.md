@@ -26,4 +26,7 @@ something similar and to play user-created playlists
 - As a user, I want to be able to shuffle the songs in the playlist
 - As a user, I want to be able to save the playlist to a file
 - As a user, I want to be able to load a playlist from a file
+- As a user, I want to be able to play a song from the playlist
+- As a user, I want to be able to pause a song from the playlist
+- As a user, I want to be able to loop the current song
 
