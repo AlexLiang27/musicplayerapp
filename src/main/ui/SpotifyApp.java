@@ -2,19 +2,24 @@ package ui;
 
 // used TellerApp from example as a guideline for the console application
 
+import model.Audio;
 import model.Playlist;
 import model.Song;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import model.SongReader;
 
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 
 // Spotify application
-public class SpotifyApp {
+public class SpotifyApp extends JFrame implements ActionListener {
 
     private static final String JSON_STORE = "./data/playlist.json";
     private Playlist myPlaylist;
@@ -27,12 +32,17 @@ public class SpotifyApp {
     private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private Audio currentAudio;
+
 
     //EFFECTS: runs the Spotify application
     public SpotifyApp() throws FileNotFoundException {
+
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         runSpotify();
+
+
 
     }
 
@@ -90,6 +100,7 @@ public class SpotifyApp {
     //MODIFIES: this
     //EFFECTS: initializes songs and playlist
     private void init() {
+        currentAudio = new Audio();
         myPlaylist = new Playlist("mine");
         myLiked = new Playlist("liked");
         mySong1 = new Song("ILLENIUM", "Nightlight", true);
@@ -103,7 +114,7 @@ public class SpotifyApp {
 
     //EFFECTS: displays menu of options to user
     private void displayMenu() {
-        System.out.println("\nSelect from: (MUST ADD SONGS FIRST TIME RUNNING PROGRAM)");
+        System.out.println("\nSelect from: ");
         System.out.println("\ta -> add songs to playlist");
         System.out.println("\tp -> play the song");
         System.out.println("\to -> pause the song");
@@ -133,19 +144,36 @@ public class SpotifyApp {
     //MODIFIES: this
     //EFFECTS: skips the current song to the next
     private void skip() {
-        myPlaylist.skipSong();
-        System.out.println("Song skipped");
-
+        try {
+            myPlaylist.skipSong();
+            currentAudio.pauseCurrentSong();
+            currentAudio.setCurrentAudioStream(SongReader.readSong("./data/" + myPlaylist.getCurrentSong().getSongName()
+                    + ".wav"));
+            currentAudio.playCurrentSong();
+            System.out.println("Song skipped");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
+                    "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }
 
     //MODIFIES: this
     //EFFECTS: shuffles the playlist
     private void shuffle() {
-        myPlaylist.shufflePlaylist();
-        System.out.println("Shuffling playlist");
+        try {
+            myPlaylist.shufflePlaylist();
 
+            currentAudio.pauseCurrentSong();
+            currentAudio.setCurrentAudioStream(SongReader.readSong("./data/" + myPlaylist.getCurrentSong().getSongName()
+                    + ".wav"));
+            currentAudio.playCurrentSong();
+            System.out.println("Shuffling playlist");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
+                    "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
 
+        }
     }
 
     //MODIFIES: this
@@ -156,15 +184,26 @@ public class SpotifyApp {
 
     }
 
-    //loops the song
+    //MODIFIES: this
+    //EFFECTS: loops the song to the start
     private void loop() {
-        System.out.println("Repeating song");
+        try {
+            currentAudio.pauseCurrentSong();
+            currentAudio.setCurrentAudioStream(SongReader.readSong("./data/" + myPlaylist.getCurrentSong().getSongName()
+                    + ".wav"));
+            currentAudio.playCurrentSong();
+            System.out.println("Repeating song");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
+                    "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 
     //MODIFIES: this
     //EFFECTS: pauses the current song
     private void pause() {
+        currentAudio.pauseCurrentSong();
         System.out.println("Paused " + myPlaylist.getCurrentSong().getSongName() + " - "
                 + myPlaylist.getCurrentSong().getArtist());
 
@@ -173,9 +212,14 @@ public class SpotifyApp {
     //MODIFIES: this
     //EFFECTS: plays the current song
     private void play() {
-        System.out.println("Playing " + myPlaylist.getCurrentSong().getSongName() + " - "
-                + myPlaylist.getCurrentSong().getArtist());
+        try {
 
+            currentAudio.playCurrentSong();
+            System.out.println("Playing " + myPlaylist.getCurrentSong().getSongName() + " - "
+                    + myPlaylist.getCurrentSong().getArtist());
+        } catch (Exception e) {
+            System.err.println("You forgot to load a playlist!");
+        }
 
     }
 
@@ -198,11 +242,19 @@ public class SpotifyApp {
     // EFFECTS: loads the playlist from file
     private void loadPlaylist() {
         try {
+
             myPlaylist = jsonReader.read();
             System.out.println("Loaded playlist" + " from " + JSON_STORE);
+            currentAudio.setCurrentAudioStream(SongReader.readSong("./data/" + myPlaylist.getCurrentSong().getSongName()
+                    + ".wav"));
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
 
