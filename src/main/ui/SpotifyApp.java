@@ -11,6 +11,8 @@ import model.SongReader;
 
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -29,14 +31,54 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private Song mySong3;
     private Song mySong4;
     private Song mySong5;
+    private Song mySong6;
+    private Song mySong7;
+    private Song mySong8;
+    private Song mySong9;
+    private Song mySong10;
     private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private Audio currentAudio;
 
 
+
+    //phase 3 jswing
+    private JLabel currentSong;
+    private JLabel currentArtist;
+    private JMenuBar saveLoadBar;
+    private JMenu file;
+    private JMenuItem viewQueue;
+    private JMenuItem load;
+    private JMenuItem save;
+    private JMenu addSongs;
+    private JMenuItem firstSong;
+    private JMenuItem secondSong;
+    private JMenuItem thirdSong;
+    private JMenuItem fourthSong;
+    private JMenuItem fifthSong;
+
+
     //EFFECTS: runs the Spotify application
     public SpotifyApp() throws FileNotFoundException {
+        super("Spotify");
+        myPlaylist = new Playlist("My Playlist");
+        currentAudio = new Audio();
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(1000, 600));
+        ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
+        setLayout(new FlowLayout());
+        currentSong = new JLabel("Welcome to Spotify!");
+        currentArtist = new JLabel("Add song to the playlist and load it!");
+
+        add(currentSong);
+        add(currentArtist);
+
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        setResizable(false);
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -100,6 +142,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
     //MODIFIES: this
     //EFFECTS: initializes songs and playlist
     private void init() {
+
         currentAudio = new Audio();
         myPlaylist = new Playlist("mine");
         myLiked = new Playlist("liked");
@@ -108,6 +151,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
         mySong3 = new Song("Dabin", "Rings & Roses", true);
         mySong4 = new Song("ILLENIUM", "Crawl Outta Love", true);
         mySong5 = new Song("Nurko", "Better Off Lonely", true);
+        mySong6 = new Song("Dabin", "Alive", true);
+        mySong7 = new Song("Fairlane", "Enough", true);
+        mySong8 = new Song("Last Heroes", "Found Us", true);
+        mySong9 = new Song("Last Heroes", "Love Like Us", true);
+        mySong10 = new Song("Wooli", "Oxygen", true);
 
 
     }
@@ -136,6 +184,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
         myPlaylist.addSongToPlaylist(mySong3);
         myPlaylist.addSongToPlaylist(mySong4);
         myPlaylist.addSongToPlaylist(mySong5);
+        myPlaylist.addSongToPlaylist(mySong6);
+        myPlaylist.addSongToPlaylist(mySong7);
+        myPlaylist.addSongToPlaylist(mySong8);
+        myPlaylist.addSongToPlaylist(mySong9);
+        myPlaylist.addSongToPlaylist(mySong10);
         System.out.println("Songs added");
 
 

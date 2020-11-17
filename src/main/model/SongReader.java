@@ -11,8 +11,8 @@ public class SongReader {
 
     //EFFECTS: returns the audio with given filepath
     public static InputStream readSong(String filepath) throws FileNotFoundException {
-        InputStream music = new FileInputStream(new File(filepath));
-
+        InputStream
+        music = new FileInputStream(new File(filepath));
         return music;
     }
 
