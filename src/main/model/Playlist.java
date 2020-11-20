@@ -34,6 +34,11 @@ public class Playlist implements Writable {
         return null;
     }
 
+    public ArrayList<Song> getPlaylist() {
+        return playList;
+    }
+
+
     //REQUIRES: a song in the playlist
     //EFFECT: returns the song in the playlist with given index
     public Song getSongInPlaylist(int index) {

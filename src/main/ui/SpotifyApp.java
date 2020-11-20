@@ -11,7 +11,7 @@ import model.Playlist;
 import model.Song;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import model.SongFileRead;
+import persistence.SongFileRead;
 
 
 import javax.swing.*;
@@ -20,8 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-
+import java.util.ArrayList;
 
 
 // Spotify application
@@ -29,7 +28,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
 
     private static final String JSON_STORE = "./data/playlist.json";
     private Playlist myPlaylist;
-    private Playlist myLiked;
+
     private Song mySong1;
     private Song mySong2;
     private Song mySong3;
@@ -63,7 +62,8 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private JMenuBar barMenu;
     private JMenu fileMenu;
     private JMenu addSongsMenu;
-    private JMenu viewPlaylist;
+    private JMenu viewMenu;
+    private JMenuItem playlistMenu;
     private JMenuItem loadMenu;
     private JMenuItem saveMenu;
 
@@ -74,6 +74,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
     //EFFECTS: runs the Spotify application
     public SpotifyApp() throws FileNotFoundException {
         init();
+
 
         window = new JFrame("Spotify");
         window.setPreferredSize(new Dimension(360, 300));
@@ -150,7 +151,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
 
 
     //MODIFIES: this
-    //EFFECTS: creates the menu bar at the top (file and add)
+    //EFFECTS: creates the menu bar at the top (file, add and view playlist)
     private void createMenu() {
         barMenu = new JMenuBar();
         fileMenu = new JMenu("File");
@@ -161,13 +162,21 @@ public class SpotifyApp extends JFrame implements ActionListener {
         saveMenu = new JMenuItem("Save");
         saveMenu.setActionCommand("save");
         saveMenu.addActionListener(this);
+
         addSongsMenu = new JMenu("Add");
+        viewMenu = new JMenu("View");
+        playlistMenu = new JMenuItem("View Playlist");
+        playlistMenu.setActionCommand("view");
+        playlistMenu.addActionListener(this);
+        viewMenu.add(playlistMenu);
+
         fileMenu.add(loadMenu);
         fileMenu.add(saveMenu);
         barMenu.add(addSongsMenu);
-        barMenu.add(viewPlaylist);
+        barMenu.add(viewMenu);
         createSongsToAdd();
         createMoreSongsToAdd();
+
         window.setJMenuBar(barMenu);
 
     }
@@ -242,7 +251,6 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private void init() {
         currentAudio = new Audio();
         myPlaylist = new Playlist("mine");
-        myLiked = new Playlist("liked");
         mySong1 = new Song("ILLENIUM", "Nightlight", true);
         mySong2 = new Song("ARMNHMR", "Here With Me", true);
         mySong3 = new Song("Dabin", "Rings & Roses", true);
@@ -274,6 +282,8 @@ public class SpotifyApp extends JFrame implements ActionListener {
             savePlaylist();
         } else if (e.getActionCommand().equals("load")) {
             loadPlaylist();
+        } else if (e.getActionCommand().equals("view")) {
+            viewer();
         } else {
             addSongsActionPerformed(e);
             addMoreSongsActionPerformed(e);
@@ -281,7 +291,22 @@ public class SpotifyApp extends JFrame implements ActionListener {
     }
 
 
-
+    //MODIFIES: this
+    //EFFECTS: shows the current playlist in a new window
+    private void viewer() {
+        JTextArea view = new JTextArea(20, 20);
+        ArrayList<Song> playlistView = myPlaylist.getPlaylist();
+        for (Song s : playlistView) {
+            String paneText = s.getSongName();
+            view.append(paneText + "\n");
+        }
+        JScrollPane scrollPane = new JScrollPane(view);
+        view.setLineWrap(true);
+        view.setWrapStyleWord(true);
+        view.setEnabled(false);
+        scrollPane.setPreferredSize(new Dimension(300, 300));
+        JOptionPane.showMessageDialog(null, scrollPane, "Your Personalized Playlist", JOptionPane.INFORMATION_MESSAGE);
+    }
 
 
     public void addSongsActionPerformed(ActionEvent e) {
@@ -335,7 +360,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
 
 
     //MODIFIES: this
-    //EFFECTS: skips the current song to the next
+    //EFFECTS: skips the current song to the next song
     private void skip() {
         try {
             myPlaylist.skipSong();
@@ -344,10 +369,10 @@ public class SpotifyApp extends JFrame implements ActionListener {
                     + myPlaylist.getCurrentSong().getSongName() + ".wav"));
             currentAudio.playCurrentSong();
             label1.setText("Skipped song and now playing: " + myPlaylist.getCurrentSong().getSongName());
-            label2.setText("by: " + myPlaylist.getCurrentSong().getArtist());
+            label2.setText("- " + myPlaylist.getCurrentSong().getArtist());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
-                    "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have no playlist loaded",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -362,25 +387,19 @@ public class SpotifyApp extends JFrame implements ActionListener {
             currentAudio.setCurrentAudioStream(SongFileRead.readFile("./data/"
                     + myPlaylist.getCurrentSong().getSongName() + ".wav"));
             currentAudio.playCurrentSong();
-            label1.setText("Now playing: " + myPlaylist.getCurrentSong().getSongName());
-            label2.setText("by: " + myPlaylist.getCurrentSong().getArtist());
+            label1.setText("Shuffled and now playing: " + myPlaylist.getCurrentSong().getSongName());
+            label2.setText("- " + myPlaylist.getCurrentSong().getArtist());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
-                    "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have no playlist loaded",
+                    "Error", JOptionPane.ERROR_MESSAGE);
 
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: removes the song from the playlist
-    private void remove() {
-        myPlaylist.removeSong(myPlaylist.getCurrentSong());
-        System.out.println("Removed current song");
 
-    }
 
     //MODIFIES: this
-    //EFFECTS: loops the song to the start
+    //EFFECTS: loops the song to the beginning
     private void loop() {
         try {
             currentAudio.pauseCurrentSong();
@@ -388,10 +407,10 @@ public class SpotifyApp extends JFrame implements ActionListener {
                     + myPlaylist.getCurrentSong().getSongName() + ".wav"));
             currentAudio.playCurrentSong();
             label1.setText("Looping: " + myPlaylist.getCurrentSong().getSongName());
-            label2.setText("by: " + myPlaylist.getCurrentSong().getArtist());
+            label2.setText("- " + myPlaylist.getCurrentSong().getArtist());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
-                    "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have no playlist loaded",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -401,7 +420,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private void pause() {
         currentAudio.pauseCurrentSong();
         label1.setText("Paused: " + myPlaylist.getCurrentSong().getSongName());
-        label2.setText("BY: " + myPlaylist.getCurrentSong().getArtist());
+        label2.setText("- " + myPlaylist.getCurrentSong().getArtist());
 
     }
 
@@ -411,18 +430,18 @@ public class SpotifyApp extends JFrame implements ActionListener {
         try {
 
             currentAudio.playCurrentSong();
-            label1.setText("Now playing: " + myPlaylist.getCurrentSong().getSongName());
-            label2.setText("by: " + myPlaylist.getCurrentSong().getArtist());
+            label1.setText("Playing: " + myPlaylist.getCurrentSong().getSongName());
+            label2.setText("- " + myPlaylist.getCurrentSong().getArtist());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "You have not loaded in a playlist",
-                    "Empty Playlist Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have no playlist loaded",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
 
 
-    // used method and modelled from the jsondemo
-    // EFFECTS: saves the playlist to file
+    // used method and modelled from the jsondemo given in phase 2
+    // EFFECTS: saves the playlist to the json file
     private void savePlaylist() {
         try {
             jsonWriter.open();
@@ -432,13 +451,13 @@ public class SpotifyApp extends JFrame implements ActionListener {
             label2.setText("");
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "File Not Found",
-                    "File Not Found Error", JOptionPane.ERROR_MESSAGE);
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     //used method and modelled from the jsondemo given in phase 2
     // MODIFIES: this
-    // EFFECTS: loads the playlist from file
+    // EFFECTS: loads the playlist from the json file
     private void loadPlaylist() {
         try {
 
@@ -449,7 +468,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
                     + myPlaylist.getCurrentSong().getSongName() + ".wav"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "File Not Found",
-                    "File Not Found Error", JOptionPane.ERROR_MESSAGE);
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

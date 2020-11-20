@@ -43,6 +43,7 @@ public class PlaylistTest {
         assertEquals(testSongInPlaylist1, testPlaylist.getSongInPlaylist(0));
         assertEquals(testSongInPlaylist2, testPlaylist.getSongInPlaylist(1));
         assertEquals(testSongInPlaylist3, testPlaylist.getSongInPlaylist(2));
+        assertEquals(3, testPlaylist.getPlaylist().size());
 
 
     }

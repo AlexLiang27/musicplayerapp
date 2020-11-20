@@ -1,4 +1,4 @@
-// WATCHED THIS VIDEO https://www.youtube.com/watch?v=3q4f6I5zi2w TO LEARN HOW TO PLAY AUDIO IN JAVA
+// read https://alvinalexander.com/java/java-audio-example-java-au-play-sound/ TO LEARN HOW TO PLAY AUDIO IN JAVA
 
 
 package model;
@@ -18,14 +18,6 @@ public class Audio {
         audio = null;
     }
 
-
-
-    //MODIFIES: this
-    //EFFECTS: creates a new AudioStream \\ java lib
-    public void setCurrentAudioStream(InputStream audioFile) throws IOException {
-        audio = new AudioStream(audioFile);
-    }
-
     //MODIFIES: this
     //EFFECTS: plays the audio
     public void playCurrentSong()  {
@@ -37,6 +29,13 @@ public class Audio {
     public void pauseCurrentSong() {
         AudioPlayer.player.stop(audio);
     }
+
+    //MODIFIES: this
+    //EFFECTS: creates a new AudioStream \\ java lib
+    public void setCurrentAudioStream(InputStream audioFile) throws IOException {
+        audio = new AudioStream(audioFile);
+    }
+
 
     //EFFECTS: checks to makes sure audio is still alive
     public boolean isSongAlive() {

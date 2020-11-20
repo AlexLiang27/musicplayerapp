@@ -1,4 +1,4 @@
-package model;
+package persistence;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 // reads the music file in the data package
+// learned through https://www.programiz.com/java-programming/inputstream
 public class SongFileRead {
 
     //EFFECTS: returns the audio with given filepath

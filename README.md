@@ -10,7 +10,7 @@ functional music player. My application will do the following:
 
 
 - run and import music files 
-- be able to have a functioning play/pause, skip, volume slider,
+- be able to have a functioning play/pause, skip, playlist viewer, etc.
 - anyone can use it, regardless of music tastes and age
 - simple ui, easy to access
 - be able to shuffle the song within the playlist
@@ -22,7 +22,6 @@ something similar and to play user-created playlists
 
 - As a user, I want to be able to skip the song and go to the next
 - As a user, I want to be able to add multiple songs to the playlist
-- As a user, I want to be able to remove a song from the playlist
 - As a user, I want to be able to shuffle the songs in the playlist
 - As a user, I want to be able to save the playlist to a file
 - As a user, I want to be able to load a playlist from a file
