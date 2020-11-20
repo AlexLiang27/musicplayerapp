@@ -301,7 +301,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("view")) {
             viewer();
         } else if (e.getActionCommand().equals("remove")) {
-            remove();
+            removeCurrentSong();
         } else if (e.getActionCommand().equals("save")) {
             savePlaylist();
         } else if (e.getActionCommand().equals("load")) {
@@ -367,7 +367,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
 
     //MODIFIES: this
     //EFFECTS: removes the current song in the playlist
-    private void remove() {
+    private void removeCurrentSong() {
         try {
             myPlaylist.removeSong(myPlaylist.getCurrentSong());
             currentAudio.pauseCurrentSong();
