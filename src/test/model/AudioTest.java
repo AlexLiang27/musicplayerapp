@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 
-// test for my audio class
+// test for my audio class specifically the play and pause methods. indirectly tested isSongAlive
 public class AudioTest {
     private Audio testAudio;
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 // playlist is a list of songs
+// THIS IS THE Y THAT GETS X ADDED INTO
 
 public class Playlist implements Writable {
     // playlist is a list of songs
@@ -98,7 +99,7 @@ public class Playlist implements Writable {
     //EFFECT: removes the song from the playlist and returns true, otherwise false
     public boolean removeSong(Song song) {
         if (playList.size() >= 1) {
-            playList.remove(song);
+            playList.remove(getCurrentSong());
             return true;
         }
         return false;

@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-//CITATION: USED JSONDEMO/MODELLED AFTER
+//CITATION: USED JSONDEMO/MODELLED AFTER THE GIVEN EXAMPLE IN PHASE 2
 class JsonReaderTest extends JsonTest {
 
     @Test

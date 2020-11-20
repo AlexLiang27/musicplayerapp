@@ -4,6 +4,7 @@ import model.Song;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//MODELLED AFTER PHASE 2 EXAMPLE GIVEN
 
 public class JsonTest {
     protected void checkSong(String artist, String songName, boolean isSongOver, Song song) {

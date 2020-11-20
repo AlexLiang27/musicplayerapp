@@ -7,6 +7,7 @@ import persistence.Writable;
 public class Song implements Writable {
 
     // Represents the songs name, artist, and whether or not the song is over
+    // THIS IS THE X BEING ADDED INTO Y
     private String artist;
     private String songName;
     private boolean isSongOver;

@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-//MODELLED THIS CLASS FROM THE DEMO EXAMPLE GIVEN
+//MODELLED THIS CLASS FROM THE DEMO EXAMPLE GIVEN IN PHASE 2
 // Represents a reader that reads playlist from JSON data stored in file
 public class JsonReader {
     private String source;

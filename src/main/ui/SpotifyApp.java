@@ -3,7 +3,7 @@ package ui;
 // used TellerApp from example as a guideline for the console application
 
 //https://www.youtube.com/watch?v=vUD5Mo2jjHs&feature=youtu.be for learning some of java swing
-
+//https://examples.javacodegeeks.com/desktop-java/swing/jbutton/set-action-command-for-jbutton/ for actionevent
 
 
 import model.Audio;
@@ -12,7 +12,6 @@ import model.Song;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import persistence.SongFileRead;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,6 +61,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private JMenuBar barMenu;
     private JMenu fileMenu;
     private JMenu addSongsMenu;
+
     private JMenu viewMenu;
     private JMenuItem playlistMenu;
     private JMenuItem loadMenu;
@@ -71,13 +71,13 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private JLabel icon;
 
 
-    //EFFECTS: runs the Spotify application
+    //EFFECTS: runs the Spotify application and creates the main frame
     public SpotifyApp() throws FileNotFoundException {
         init();
 
 
         window = new JFrame("Spotify");
-        window.setPreferredSize(new Dimension(360, 300));
+        window.setPreferredSize(new Dimension(440, 300));
         window.setDefaultCloseOperation(window.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.white);
         window.setLayout(new FlowLayout());
@@ -85,11 +85,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
         label2 = new JLabel("Add some songs and load them in!");
 
         createButtons();
+        createMoreButtons();
         createMenu();
         window.add(label1);
         window.add(label2);
         createLogo();
-
 
 
         window.pack();
@@ -118,6 +118,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
     //MODIFIES: this
     //EFFECTS: creates the buttons to make the basic music player functions work
     private void createButtons() {
+
+        JButton shuffle = new JButton("Shuffle");
+        shuffle.setActionCommand("shuffle");
+        shuffle.addActionListener(this);
+
         JButton play = new JButton("Play");
         play.setActionCommand("play");
         play.addActionListener(this);
@@ -130,55 +135,74 @@ public class SpotifyApp extends JFrame implements ActionListener {
         skip.setActionCommand("skip");
         skip.addActionListener(this);
 
-        JButton loop = new JButton("Loop");
-        loop.setActionCommand("loop");
-        loop.addActionListener(this);
-
-        JButton shuffle = new JButton("Shuffle");
-        shuffle.setActionCommand("shuffle");
-        shuffle.addActionListener(this);
 
         window.add(shuffle);
         window.add(play);
         window.add(pause);
         window.add(skip);
-        window.add(loop);
 
     }
 
 
+    //MODIFIES: this
+    //EFFECTS: creates the buttons to make the basic music player functions work
+    private void createMoreButtons() {
 
 
+        JButton loop = new JButton("Loop");
+        loop.setActionCommand("loop");
+        loop.addActionListener(this);
+
+
+
+        JButton remove = new JButton("Remove");
+        remove.setActionCommand("remove");
+        remove.addActionListener(this);
+
+        window.add(loop);
+
+
+        window.add(remove);
+
+    }
 
     //MODIFIES: this
     //EFFECTS: creates the menu bar at the top (file, add and view playlist)
     private void createMenu() {
         barMenu = new JMenuBar();
         fileMenu = new JMenu("File");
-        barMenu.add(fileMenu);
+
         loadMenu = new JMenuItem("Load");
         loadMenu.setActionCommand("load");
         loadMenu.addActionListener(this);
         saveMenu = new JMenuItem("Save");
         saveMenu.setActionCommand("save");
         saveMenu.addActionListener(this);
-
         addSongsMenu = new JMenu("Add");
         viewMenu = new JMenu("View");
+
         playlistMenu = new JMenuItem("View Playlist");
         playlistMenu.setActionCommand("view");
         playlistMenu.addActionListener(this);
-        viewMenu.add(playlistMenu);
+        addMenu();
+        createSongsToAdd();
+        createMoreSongsToAdd();
 
+
+        window.setJMenuBar(barMenu);
+
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: creates the menu buttons, didn't have enough line space from previous method
+    private void addMenu() {
+        barMenu.add(fileMenu);
         fileMenu.add(loadMenu);
         fileMenu.add(saveMenu);
         barMenu.add(addSongsMenu);
         barMenu.add(viewMenu);
-        createSongsToAdd();
-        createMoreSongsToAdd();
-
-        window.setJMenuBar(barMenu);
-
+        viewMenu.add(playlistMenu);
     }
 
 
@@ -246,6 +270,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
 
     }
 
+
     //MODIFIES: this
     //EFFECTS: initializes songs and playlist
     private void init() {
@@ -265,8 +290,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
     }
 
 
-
-
+    //EFFECTS: checks for the action of the user
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("play")) {
             play();
@@ -284,31 +308,17 @@ public class SpotifyApp extends JFrame implements ActionListener {
             loadPlaylist();
         } else if (e.getActionCommand().equals("view")) {
             viewer();
+        } else if (e.getActionCommand().equals("remove")) {
+            remove();
         } else {
             addSongsActionPerformed(e);
             addMoreSongsActionPerformed(e);
+
         }
     }
 
 
-    //MODIFIES: this
-    //EFFECTS: shows the current playlist in a new window
-    private void viewer() {
-        JTextArea view = new JTextArea(20, 20);
-        ArrayList<Song> playlistView = myPlaylist.getPlaylist();
-        for (Song s : playlistView) {
-            String paneText = s.getSongName();
-            view.append(paneText + "\n");
-        }
-        JScrollPane scrollPane = new JScrollPane(view);
-        view.setLineWrap(true);
-        view.setWrapStyleWord(true);
-        view.setEnabled(false);
-        scrollPane.setPreferredSize(new Dimension(300, 300));
-        JOptionPane.showMessageDialog(null, scrollPane, "Your Personalized Playlist", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-
+    //EFFECTS: adds selected song to the playlist
     public void addSongsActionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("song1")) {
             myPlaylist.addSongToPlaylist(mySong1);
@@ -334,6 +344,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
     }
 
 
+    //EFFECTS: also adds songs selected to the playlist but previous method was too long.
     public void addMoreSongsActionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("song6")) {
             myPlaylist.addSongToPlaylist(mySong6);
@@ -358,6 +369,39 @@ public class SpotifyApp extends JFrame implements ActionListener {
         }
     }
 
+
+    private void remove() {
+        try {
+            myPlaylist.removeSong(myPlaylist.getCurrentSong());
+            currentAudio.pauseCurrentSong();
+            currentAudio.setCurrentAudioStream(SongFileRead.readFile("./data/"
+                    + myPlaylist.getCurrentSong().getSongName() + ".wav"));
+            currentAudio.playCurrentSong();
+            label1.setText("Removed song and now playing: " + myPlaylist.getCurrentSong().getSongName());
+            label2.setText("- " + myPlaylist.getCurrentSong().getArtist());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "You have no playlist loaded",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+
+    //EFFECTS: shows the current playlist in a new window
+    private void viewer() {
+        JTextArea view = new JTextArea(20, 20);
+        ArrayList<Song> playlistView = myPlaylist.getPlaylist();
+        for (Song s : playlistView) {
+            String paneText = s.getSongName();
+            view.append(paneText + "\n");
+        }
+        JScrollPane scrollPane = new JScrollPane(view);
+        view.setLineWrap(true);
+        view.setWrapStyleWord(true);
+        view.setEnabled(false);
+        scrollPane.setPreferredSize(new Dimension(300, 300));
+        JOptionPane.showMessageDialog(null, scrollPane, "Your Personalized Playlist", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     //MODIFIES: this
     //EFFECTS: skips the current song to the next song
@@ -397,7 +441,6 @@ public class SpotifyApp extends JFrame implements ActionListener {
     }
 
 
-
     //MODIFIES: this
     //EFFECTS: loops the song to the beginning
     private void loop() {
@@ -418,9 +461,14 @@ public class SpotifyApp extends JFrame implements ActionListener {
     //MODIFIES: this
     //EFFECTS: pauses the current song
     private void pause() {
-        currentAudio.pauseCurrentSong();
-        label1.setText("Paused: " + myPlaylist.getCurrentSong().getSongName());
-        label2.setText("- " + myPlaylist.getCurrentSong().getArtist());
+        try {
+            currentAudio.pauseCurrentSong();
+            label1.setText("Paused: " + myPlaylist.getCurrentSong().getSongName());
+            label2.setText("- " + myPlaylist.getCurrentSong().getArtist());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "You have no playlist loaded",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }
 
