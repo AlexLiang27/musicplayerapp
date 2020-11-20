@@ -108,7 +108,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private void createLogo() {
         logo = new ImageIcon("./data/icon1@2x.png");
         Image image = logo.getImage();
-        Image modifiedImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image modifiedImage = image.getScaledInstance(260, 260, Image.SCALE_SMOOTH);
         logo = new ImageIcon(modifiedImage);
         icon = new JLabel("");
         icon.setIcon(logo);
