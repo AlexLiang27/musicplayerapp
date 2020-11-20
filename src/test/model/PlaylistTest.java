@@ -21,7 +21,7 @@ public class PlaylistTest {
 
 
     @BeforeEach
-    void runBefore() {
+    void setUp() {
         testPlaylist = new Playlist("liked");
         testEmptyPlaylist = new Playlist("empty");
 

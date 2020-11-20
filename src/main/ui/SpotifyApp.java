@@ -2,22 +2,26 @@ package ui;
 
 // used TellerApp from example as a guideline for the console application
 
+//https://www.youtube.com/watch?v=vUD5Mo2jjHs&feature=youtu.be for learning some of java swing
+
+
+
 import model.Audio;
 import model.Playlist;
 import model.Song;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import model.SongReader;
+import model.SongFileRead;
 
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
+
+
 
 
 // Spotify application
@@ -36,113 +40,206 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private Song mySong8;
     private Song mySong9;
     private Song mySong10;
-    private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private Audio currentAudio;
 
 
+    //phase 3 jswing/ui
 
-    //phase 3 jswing
-    private JLabel currentSong;
-    private JLabel currentArtist;
-    private JMenuBar saveLoadBar;
-    private JMenu file;
-    private JMenuItem viewQueue;
-    private JMenuItem load;
-    private JMenuItem save;
-    private JMenu addSongs;
-    private JMenuItem firstSong;
-    private JMenuItem secondSong;
-    private JMenuItem thirdSong;
-    private JMenuItem fourthSong;
-    private JMenuItem fifthSong;
+    private JFrame window;
+    private JLabel label1;
+    private JLabel label2;
+    private JMenuItem songMenu1;
+    private JMenuItem songMenu2;
+    private JMenuItem songMenu3;
+    private JMenuItem songMenu4;
+    private JMenuItem songMenu5;
+    private JMenuItem songMenu6;
+    private JMenuItem songMenu7;
+    private JMenuItem songMenu8;
+    private JMenuItem songMenu9;
+    private JMenuItem songMenu10;
+    private JMenuBar barMenu;
+    private JMenu fileMenu;
+    private JMenu addSongsMenu;
+    private JMenu viewPlaylist;
+    private JMenuItem loadMenu;
+    private JMenuItem saveMenu;
+
+    private ImageIcon logo;
+    private JLabel icon;
 
 
     //EFFECTS: runs the Spotify application
     public SpotifyApp() throws FileNotFoundException {
-        super("Spotify");
-        myPlaylist = new Playlist("My Playlist");
-        currentAudio = new Audio();
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(1000, 600));
-        ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
-        setLayout(new FlowLayout());
-        currentSong = new JLabel("Welcome to Spotify!");
-        currentArtist = new JLabel("Add song to the playlist and load it!");
-
-        add(currentSong);
-        add(currentArtist);
-
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setResizable(false);
-
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
-        runSpotify();
-
-
-
-    }
-
-
-    //MODIFIES: this
-    //EFFECTS: processes user input
-    private void runSpotify() {
-        boolean keepGoing = true;
-        String command = null;
-        input = new Scanner(System.in);
-
         init();
 
-        while (keepGoing) {
-            displayMenu();
-            command = input.next();
-            command = command.toLowerCase();
+        window = new JFrame("Spotify");
+        window.setPreferredSize(new Dimension(360, 300));
+        window.setDefaultCloseOperation(window.EXIT_ON_CLOSE);
+        window.getContentPane().setBackground(Color.white);
+        window.setLayout(new FlowLayout());
+        label1 = new JLabel("Welcome to Spotify 2.0!");
+        label2 = new JLabel("Add some songs and load them in!");
 
-            if (command.equals("q")) {
-                keepGoing = false;
-            } else {
-                processCommand(command);
-            }
-        }
-        System.out.println("\nGoodbye!");
+        createButtons();
+        createMenu();
+        window.add(label1);
+        window.add(label2);
+        createLogo();
+
+
+
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        window.setResizable(false);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: creates the spotify logo :)
+
+    private void createLogo() {
+        logo = new ImageIcon("./data/icon1@2x.png");
+        Image image = logo.getImage();
+        Image modifiedImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        logo = new ImageIcon(modifiedImage);
+        icon = new JLabel("");
+        icon.setIcon(logo);
+        window.add(icon);
     }
 
     //MODIFIES: this
-    //EFFECTS: processes user command
-    private void processCommand(String command) {
-        if (command.equals("p")) {
-            play();
-        } else if (command.equals("o")) {
-            pause();
-        } else if (command.equals("l")) {
-            loop();
-        } else if (command.equals("a")) {
-            add();
-        } else if (command.equals("k")) {
-            skip();
-        } else if (command.equals("s")) {
-            shuffle();
-        } else if (command.equals("r")) {
-            remove();
-        } else if (command.equals("save")) {
-            savePlaylist();
-        } else if (command.equals("load")) {
-            loadPlaylist();
-        } else {
-            System.out.println("Selection not valid...");
-        }
+    //EFFECTS: creates the buttons to make the basic music player functions work
+    private void createButtons() {
+        JButton play = new JButton("Play");
+        play.setActionCommand("play");
+        play.addActionListener(this);
+
+        JButton pause = new JButton("Pause");
+        pause.setActionCommand("pause");
+        pause.addActionListener(this);
+
+        JButton skip = new JButton("Skip");
+        skip.setActionCommand("skip");
+        skip.addActionListener(this);
+
+        JButton loop = new JButton("Loop");
+        loop.setActionCommand("loop");
+        loop.addActionListener(this);
+
+        JButton shuffle = new JButton("Shuffle");
+        shuffle.setActionCommand("shuffle");
+        shuffle.addActionListener(this);
+
+        window.add(shuffle);
+        window.add(play);
+        window.add(pause);
+        window.add(skip);
+        window.add(loop);
+
     }
 
+
+
+
+
+    //MODIFIES: this
+    //EFFECTS: creates the menu bar at the top (file and add)
+    private void createMenu() {
+        barMenu = new JMenuBar();
+        fileMenu = new JMenu("File");
+        barMenu.add(fileMenu);
+        loadMenu = new JMenuItem("Load");
+        loadMenu.setActionCommand("load");
+        loadMenu.addActionListener(this);
+        saveMenu = new JMenuItem("Save");
+        saveMenu.setActionCommand("save");
+        saveMenu.addActionListener(this);
+        addSongsMenu = new JMenu("Add");
+        fileMenu.add(loadMenu);
+        fileMenu.add(saveMenu);
+        barMenu.add(addSongsMenu);
+        barMenu.add(viewPlaylist);
+        createSongsToAdd();
+        createMoreSongsToAdd();
+        window.setJMenuBar(barMenu);
+
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: creates all the songs you can add to the playlist
+    private void createSongsToAdd() {
+        songMenu1 = new JMenuItem(mySong1.getSongName());
+        songMenu1.setActionCommand("song1");
+        songMenu1.addActionListener(this);
+
+        songMenu2 = new JMenuItem(mySong2.getSongName());
+        songMenu2.setActionCommand("song2");
+        songMenu2.addActionListener(this);
+
+        songMenu3 = new JMenuItem(mySong3.getSongName());
+        songMenu3.setActionCommand("song3");
+        songMenu3.addActionListener(this);
+
+        songMenu4 = new JMenuItem(mySong4.getSongName());
+        songMenu4.setActionCommand("song4");
+        songMenu4.addActionListener(this);
+
+        songMenu5 = new JMenuItem(mySong5.getSongName());
+        songMenu5.setActionCommand("song5");
+        songMenu5.addActionListener(this);
+
+        addSongsMenu.add(songMenu1);
+        addSongsMenu.add(songMenu2);
+        addSongsMenu.add(songMenu3);
+        addSongsMenu.add(songMenu4);
+        addSongsMenu.add(songMenu5);
+
+
+    }
+
+    //MODIFIES: this
+    //EFFECTS: creates songs you can add to the playlist // continued because code would be too long
+    private void createMoreSongsToAdd() {
+        songMenu6 = new JMenuItem(mySong6.getSongName());
+        songMenu6.setActionCommand("song6");
+        songMenu6.addActionListener(this);
+
+        songMenu7 = new JMenuItem(mySong7.getSongName());
+        songMenu7.setActionCommand("song7");
+        songMenu7.addActionListener(this);
+
+        songMenu8 = new JMenuItem(mySong8.getSongName());
+        songMenu8.setActionCommand("song8");
+        songMenu8.addActionListener(this);
+
+        songMenu9 = new JMenuItem(mySong9.getSongName());
+        songMenu9.setActionCommand("song9");
+        songMenu9.addActionListener(this);
+
+        songMenu10 = new JMenuItem(mySong10.getSongName());
+        songMenu10.setActionCommand("song10");
+        songMenu10.addActionListener(this);
+
+        addSongsMenu.add(songMenu6);
+        addSongsMenu.add(songMenu7);
+        addSongsMenu.add(songMenu8);
+        addSongsMenu.add(songMenu9);
+        addSongsMenu.add(songMenu10);
+
+
+    }
 
     //MODIFIES: this
     //EFFECTS: initializes songs and playlist
     private void init() {
-
         currentAudio = new Audio();
         myPlaylist = new Playlist("mine");
         myLiked = new Playlist("liked");
@@ -157,42 +254,85 @@ public class SpotifyApp extends JFrame implements ActionListener {
         mySong9 = new Song("Last Heroes", "Love Like Us", true);
         mySong10 = new Song("Wooli", "Oxygen", true);
 
-
     }
 
-    //EFFECTS: displays menu of options to user
-    private void displayMenu() {
-        System.out.println("\nSelect from: ");
-        System.out.println("\ta -> add songs to playlist");
-        System.out.println("\tp -> play the song");
-        System.out.println("\to -> pause the song");
-        System.out.println("\tk -> skip the song");
-        System.out.println("\tr -> remove song from playlist");
-        System.out.println("\ts -> shuffle playlist");
-        System.out.println("\tl -> repeat the song");
-        System.out.println("\tq -> quit the program");
-        System.out.println("\tsave -> save playlist");
-        System.out.println("\tload -> load playlist");
+
+
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("play")) {
+            play();
+        } else if (e.getActionCommand().equals("pause")) {
+            pause();
+        } else if (e.getActionCommand().equals("skip")) {
+            skip();
+        } else if (e.getActionCommand().equals("loop")) {
+            loop();
+        } else if (e.getActionCommand().equals("shuffle")) {
+            shuffle();
+        } else if (e.getActionCommand().equals("save")) {
+            savePlaylist();
+        } else if (e.getActionCommand().equals("load")) {
+            loadPlaylist();
+        } else {
+            addSongsActionPerformed(e);
+            addMoreSongsActionPerformed(e);
+        }
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds songs to the playlist
-    private void add() {
-
-        myPlaylist.addSongToPlaylist(mySong1);
-        myPlaylist.addSongToPlaylist(mySong2);
-        myPlaylist.addSongToPlaylist(mySong3);
-        myPlaylist.addSongToPlaylist(mySong4);
-        myPlaylist.addSongToPlaylist(mySong5);
-        myPlaylist.addSongToPlaylist(mySong6);
-        myPlaylist.addSongToPlaylist(mySong7);
-        myPlaylist.addSongToPlaylist(mySong8);
-        myPlaylist.addSongToPlaylist(mySong9);
-        myPlaylist.addSongToPlaylist(mySong10);
-        System.out.println("Songs added");
 
 
+
+
+    public void addSongsActionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("song1")) {
+            myPlaylist.addSongToPlaylist(mySong1);
+            label1.setText(mySong1.getSongName());
+            label2.setText("has been added to your playlist");
+        } else if (e.getActionCommand().equals("song2")) {
+            myPlaylist.addSongToPlaylist(mySong2);
+            label1.setText(mySong2.getSongName());
+            label2.setText("has been added to your playlist");
+        } else if (e.getActionCommand().equals("song3")) {
+            myPlaylist.addSongToPlaylist(mySong3);
+            label1.setText(mySong3.getSongName());
+            label2.setText("has been added to your playlist");
+        } else if (e.getActionCommand().equals("song4")) {
+            myPlaylist.addSongToPlaylist(mySong4);
+            label1.setText(mySong4.getSongName());
+            label2.setText("has been added to your playlist");
+        } else if (e.getActionCommand().equals("song5")) {
+            myPlaylist.addSongToPlaylist(mySong5);
+            label1.setText(mySong5.getSongName());
+            label2.setText("has been added to your playlist");
+        }
     }
+
+
+    public void addMoreSongsActionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("song6")) {
+            myPlaylist.addSongToPlaylist(mySong6);
+            label1.setText(mySong6.getSongName());
+            label2.setText("has been added to your playlist");
+        } else if (e.getActionCommand().equals("song7")) {
+            myPlaylist.addSongToPlaylist(mySong7);
+            label1.setText(mySong7.getSongName());
+            label2.setText("has been added to your playlist");
+        } else if (e.getActionCommand().equals("song8")) {
+            myPlaylist.addSongToPlaylist(mySong8);
+            label1.setText(mySong8.getSongName());
+            label2.setText("has been added to your playlist");
+        } else if (e.getActionCommand().equals("song9")) {
+            myPlaylist.addSongToPlaylist(mySong9);
+            label1.setText(mySong9.getSongName());
+            label2.setText("has been added to your playlist");
+        } else if (e.getActionCommand().equals("song10")) {
+            myPlaylist.addSongToPlaylist(mySong10);
+            label1.setText(mySong10.getSongName());
+            label2.setText("has been added to your playlist");
+        }
+    }
+
 
     //MODIFIES: this
     //EFFECTS: skips the current song to the next
@@ -200,10 +340,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
         try {
             myPlaylist.skipSong();
             currentAudio.pauseCurrentSong();
-            currentAudio.setCurrentAudioStream(SongReader.readSong("./data/" + myPlaylist.getCurrentSong().getSongName()
-                    + ".wav"));
+            currentAudio.setCurrentAudioStream(SongFileRead.readFile("./data/"
+                    + myPlaylist.getCurrentSong().getSongName() + ".wav"));
             currentAudio.playCurrentSong();
-            System.out.println("Song skipped");
+            label1.setText("Skipped song and now playing: " + myPlaylist.getCurrentSong().getSongName());
+            label2.setText("by: " + myPlaylist.getCurrentSong().getArtist());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
                     "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
@@ -218,10 +359,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
             myPlaylist.shufflePlaylist();
 
             currentAudio.pauseCurrentSong();
-            currentAudio.setCurrentAudioStream(SongReader.readSong("./data/" + myPlaylist.getCurrentSong().getSongName()
-                    + ".wav"));
+            currentAudio.setCurrentAudioStream(SongFileRead.readFile("./data/"
+                    + myPlaylist.getCurrentSong().getSongName() + ".wav"));
             currentAudio.playCurrentSong();
-            System.out.println("Shuffling playlist");
+            label1.setText("Now playing: " + myPlaylist.getCurrentSong().getSongName());
+            label2.setText("by: " + myPlaylist.getCurrentSong().getArtist());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
                     "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
@@ -242,10 +384,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private void loop() {
         try {
             currentAudio.pauseCurrentSong();
-            currentAudio.setCurrentAudioStream(SongReader.readSong("./data/" + myPlaylist.getCurrentSong().getSongName()
-                    + ".wav"));
+            currentAudio.setCurrentAudioStream(SongFileRead.readFile("./data/"
+                    + myPlaylist.getCurrentSong().getSongName() + ".wav"));
             currentAudio.playCurrentSong();
-            System.out.println("Repeating song");
+            label1.setText("Looping: " + myPlaylist.getCurrentSong().getSongName());
+            label2.setText("by: " + myPlaylist.getCurrentSong().getArtist());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "You haven't loaded a playlist",
                     "Playlist is empty error", JOptionPane.ERROR_MESSAGE);
@@ -257,8 +400,8 @@ public class SpotifyApp extends JFrame implements ActionListener {
     //EFFECTS: pauses the current song
     private void pause() {
         currentAudio.pauseCurrentSong();
-        System.out.println("Paused " + myPlaylist.getCurrentSong().getSongName() + " - "
-                + myPlaylist.getCurrentSong().getArtist());
+        label1.setText("Paused: " + myPlaylist.getCurrentSong().getSongName());
+        label2.setText("BY: " + myPlaylist.getCurrentSong().getArtist());
 
     }
 
@@ -268,10 +411,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
         try {
 
             currentAudio.playCurrentSong();
-            System.out.println("Playing " + myPlaylist.getCurrentSong().getSongName() + " - "
-                    + myPlaylist.getCurrentSong().getArtist());
+            label1.setText("Now playing: " + myPlaylist.getCurrentSong().getSongName());
+            label2.setText("by: " + myPlaylist.getCurrentSong().getArtist());
         } catch (Exception e) {
-            System.err.println("You forgot to load a playlist!");
+            JOptionPane.showMessageDialog(null, "You have not loaded in a playlist",
+                    "Empty Playlist Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -284,33 +428,33 @@ public class SpotifyApp extends JFrame implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(myPlaylist);
             jsonWriter.close();
-            System.out.println("Saved Playlist" + " to " + JSON_STORE);
+            label1.setText("You have saved your playlist!");
+            label2.setText("");
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            JOptionPane.showMessageDialog(null, "File Not Found",
+                    "File Not Found Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //used method and modelled from the jsondemo
+    //used method and modelled from the jsondemo given in phase 2
     // MODIFIES: this
     // EFFECTS: loads the playlist from file
     private void loadPlaylist() {
         try {
 
             myPlaylist = jsonReader.read();
-            System.out.println("Loaded playlist" + " from " + JSON_STORE);
-            currentAudio.setCurrentAudioStream(SongReader.readSong("./data/" + myPlaylist.getCurrentSong().getSongName()
-                    + ".wav"));
+            label1.setText("Your playlist has now been loaded!");
+            label2.setText("");
+            currentAudio.setCurrentAudioStream(SongFileRead.readFile("./data/"
+                    + myPlaylist.getCurrentSong().getSongName() + ".wav"));
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            JOptionPane.showMessageDialog(null, "File Not Found",
+                    "File Not Found Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
 
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }
-
 
 
 

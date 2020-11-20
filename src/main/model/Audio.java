@@ -3,7 +3,7 @@
 
 package model;
 
-import org.json.JSONObject;
+
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import java.io.IOException;
@@ -21,19 +21,19 @@ public class Audio {
 
 
     //MODIFIES: this
-    //EFFECTS: creates a new AudioStream
-    public void setCurrentAudioStream(InputStream music) throws IOException {
-        audio = new AudioStream(music);
+    //EFFECTS: creates a new AudioStream \\ java lib
+    public void setCurrentAudioStream(InputStream audioFile) throws IOException {
+        audio = new AudioStream(audioFile);
     }
 
     //MODIFIES: this
-    //EFFECTS: plays the current audio
+    //EFFECTS: plays the audio
     public void playCurrentSong()  {
         AudioPlayer.player.start(audio);
     }
 
     //MODIFIES: this
-    //EFFECTS: pauses the current audio
+    //EFFECTS: pauses the audio
     public void pauseCurrentSong() {
         AudioPlayer.player.stop(audio);
     }

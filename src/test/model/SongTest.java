@@ -15,7 +15,7 @@ public class SongTest {
     private Song testSong3;
 
     @BeforeEach
-    void runBefore() {
+    void setUp() {
         testSong1 = new Song("ILLENIUM", "Nightlight", false);
         testSong2 = new Song("ARMNHMR", "Here With Me", true);
         testSong3 = new Song("Dabin", "Rings & Roses", true);

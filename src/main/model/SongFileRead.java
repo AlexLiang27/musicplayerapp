@@ -6,14 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 // reads the music file in the data package
-public class SongReader {
-
+public class SongFileRead {
 
     //EFFECTS: returns the audio with given filepath
-    public static InputStream readSong(String filepath) throws FileNotFoundException {
-        InputStream
-        music = new FileInputStream(new File(filepath));
-        return music;
+    public static InputStream readFile(String filepath) throws FileNotFoundException {
+        InputStream audioFile = new FileInputStream(new File(filepath));
+        return audioFile;
     }
 
 }
