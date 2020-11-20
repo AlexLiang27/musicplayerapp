@@ -75,9 +75,8 @@ public class SpotifyApp extends JFrame implements ActionListener {
     public SpotifyApp() throws FileNotFoundException {
         init();
 
-
         window = new JFrame("Spotify");
-        window.setPreferredSize(new Dimension(440, 300));
+        window.setPreferredSize(new Dimension(440, 320));
         window.setDefaultCloseOperation(window.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.white);
         window.setLayout(new FlowLayout());
@@ -108,10 +107,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private void createLogo() {
         logo = new ImageIcon("./data/icon1@2x.png");
         Image image = logo.getImage();
-        Image modifiedImage = image.getScaledInstance(260, 260, Image.SCALE_SMOOTH);
+        Image modifiedImage = image.getScaledInstance(280, 280, Image.SCALE_SMOOTH);
         logo = new ImageIcon(modifiedImage);
         icon = new JLabel("");
         icon.setIcon(logo);
+
         window.add(icon);
     }
 
@@ -154,14 +154,11 @@ public class SpotifyApp extends JFrame implements ActionListener {
         loop.addActionListener(this);
 
 
-
         JButton remove = new JButton("Remove");
         remove.setActionCommand("remove");
         remove.addActionListener(this);
 
         window.add(loop);
-
-
         window.add(remove);
 
     }
@@ -187,7 +184,6 @@ public class SpotifyApp extends JFrame implements ActionListener {
         addMenu();
         createSongsToAdd();
         createMoreSongsToAdd();
-
 
         window.setJMenuBar(barMenu);
 
@@ -272,7 +268,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
 
 
     //MODIFIES: this
-    //EFFECTS: initializes songs and playlist
+    //EFFECTS: initializes songs and playlist at the beginning of running this program
     private void init() {
         currentAudio = new Audio();
         myPlaylist = new Playlist("mine");
@@ -290,7 +286,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
     }
 
 
-    //EFFECTS: checks for the action of the user
+    //EFFECTS: checks for the action of the user AKA clicks*
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("play")) {
             play();
@@ -302,14 +298,14 @@ public class SpotifyApp extends JFrame implements ActionListener {
             loop();
         } else if (e.getActionCommand().equals("shuffle")) {
             shuffle();
-        } else if (e.getActionCommand().equals("save")) {
-            savePlaylist();
-        } else if (e.getActionCommand().equals("load")) {
-            loadPlaylist();
         } else if (e.getActionCommand().equals("view")) {
             viewer();
         } else if (e.getActionCommand().equals("remove")) {
             remove();
+        } else if (e.getActionCommand().equals("save")) {
+            savePlaylist();
+        } else if (e.getActionCommand().equals("load")) {
+            loadPlaylist();
         } else {
             addSongsActionPerformed(e);
             addMoreSongsActionPerformed(e);
@@ -369,7 +365,8 @@ public class SpotifyApp extends JFrame implements ActionListener {
         }
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: removes the current song in the playlist
     private void remove() {
         try {
             myPlaylist.removeSong(myPlaylist.getCurrentSong());
@@ -391,16 +388,15 @@ public class SpotifyApp extends JFrame implements ActionListener {
     private void viewer() {
         JTextArea view = new JTextArea(20, 20);
         ArrayList<Song> playlistView = myPlaylist.getPlaylist();
-        for (Song s : playlistView) {
-            String paneText = s.getSongName();
+        for (Song song : playlistView) {
+            String paneText = song.getSongName();
             view.append(paneText + "\n");
         }
         JScrollPane scrollPane = new JScrollPane(view);
-        view.setLineWrap(true);
-        view.setWrapStyleWord(true);
         view.setEnabled(false);
-        scrollPane.setPreferredSize(new Dimension(300, 300));
-        JOptionPane.showMessageDialog(null, scrollPane, "Your Personalized Playlist", JOptionPane.INFORMATION_MESSAGE);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+        JOptionPane.showMessageDialog(null, scrollPane, "Your Personalized Playlist",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     //MODIFIES: this
