@@ -1,11 +1,12 @@
 // read https://alvinalexander.com/java/java-audio-example-java-au-play-sound/ TO LEARN HOW TO PLAY AUDIO IN JAVA
 
 
-package model;
+package ui;
 
 
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -20,7 +21,7 @@ public class Audio {
 
     //MODIFIES: this
     //EFFECTS: plays the audio
-    public void playCurrentSong()  {
+    public void playCurrentSong() {
         AudioPlayer.player.start(audio);
     }
 
