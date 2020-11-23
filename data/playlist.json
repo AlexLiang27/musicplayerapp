@@ -1,8 +1,8 @@
 {
     "songs": [
         {
-            "songName": "Here With Me",
-            "artist": "ARMNHMR",
+            "songName": "Nightlight",
+            "artist": "ILLENIUM",
             "isSongOver": true
         },
         {
@@ -11,28 +11,13 @@
             "isSongOver": true
         },
         {
-            "songName": "Crawl Outta Love",
-            "artist": "ILLENIUM",
-            "isSongOver": true
-        },
-        {
-            "songName": "Better Off Lonely",
-            "artist": "Nurko",
-            "isSongOver": true
-        },
-        {
-            "songName": "Nightlight",
-            "artist": "ILLENIUM",
-            "isSongOver": true
-        },
-        {
-            "songName": "Oxygen",
-            "artist": "Wooli",
-            "isSongOver": true
-        },
-        {
             "songName": "Alive",
             "artist": "Dabin",
+            "isSongOver": true
+        },
+        {
+            "songName": "Found Us",
+            "artist": "Last Heroes",
             "isSongOver": true
         }
     ],

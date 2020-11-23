@@ -30,4 +30,10 @@ something similar and to play user-created playlists
 - As a user, I want to be able to loop the current song
 - As a user, I want to be able to remove the song from the playlist
 
+## Phase 4: Task 2
+
+I have chosen option 1 which was to test and design a class in my model package that is robust.
+The class that is designed to be robust is the Audio class in the model package. Specifically,
+the method setCurrentAudioStream. This method has a test class with two exceptions; one where
+the exception is expected and another where the exception is not expected.
 

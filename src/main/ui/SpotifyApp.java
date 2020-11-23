@@ -6,6 +6,7 @@ package ui;
 //https://examples.javacodegeeks.com/desktop-java/swing/jbutton/set-action-command-for-jbutton/ for actionevent
 
 
+import model.Audio;
 import model.Playlist;
 import model.Song;
 import persistence.JsonReader;

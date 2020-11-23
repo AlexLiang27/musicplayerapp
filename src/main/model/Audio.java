@@ -1,7 +1,7 @@
 // read https://alvinalexander.com/java/java-audio-example-java-au-play-sound/ TO LEARN HOW TO PLAY AUDIO IN JAVA
 
 
-package ui;
+package model;
 
 
 import sun.audio.AudioPlayer;
