@@ -43,5 +43,6 @@ If I had more time to work on my project, I would have made my GUI a lot more ne
 images for the song album everytime the song plays. The picture would then switch whenever the next song is played. Another thing
 I would change is my action command if statements because they are really long in this current version.
 I would make them switch statements if I had more time because switch statements are the same as if-else statements
-but are visually cleaner. I only found out about switch statements near the end of my project.
+but are visually cleaner. I only found out about switch statements near the end of my project. Lastly, another thing
+I would add to my project is having multiple playlists.
 
