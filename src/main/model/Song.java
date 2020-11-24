@@ -1,6 +1,7 @@
 package model;
 
 
+import exception.SetSongException;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -14,7 +15,10 @@ public class Song implements Writable {
 
 
     //EFFECTS: sets the song name, artist, and whether or not if the song is over
-    public Song(String artist, String songName, boolean isSongOver) {
+    public Song(String artist, String songName, boolean isSongOver) throws SetSongException {
+        if (artist.length() <= 0 || songName.length() <= 0) {
+            throw new SetSongException();
+        }
         this.artist = artist;
         this.songName = songName;
         this.isSongOver = isSongOver;

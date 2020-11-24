@@ -33,7 +33,9 @@ something similar and to play user-created playlists
 ## Phase 4: Task 2
 
 I have chosen option 1 which was to test and design a class in my model package that is robust.
-The class that is designed to be robust is the Audio class in the model package. Specifically,
-the method setCurrentAudioStream. This method has a test class with two exceptions; one where
-the exception is expected and another where the exception is not expected.
+The class that is designed to be robust is the Song class in the model package. Specifically,
+when the song's artist name length given is not a reasonable length and also when the song name length is not a reasonable length. This exception I 
+created called SetSongException gets thrown in the constructor of the class song when the requirements of my if statements are met.
+
+## Phase 4: Task 3
 

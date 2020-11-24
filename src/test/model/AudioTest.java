@@ -26,18 +26,12 @@ public class AudioTest {
             assertTrue(testAudio.isSongAlive());
             testAudio.pauseCurrentSong();
             assertTrue(testAudio.isSongAlive());
-
-
         } catch (IOException e) {
-            fail("Should not have thrown exception");
+            fail("Should not have thrown IOException");
         }
-        try {
 
-            testAudio.setCurrentAudioStream(SongFileRead.readFile("./data/Cannotread.wav"));
-            fail("Should have thrown exception");
-        } catch (IOException e) {
 
-        }
+
     }
 
 
