@@ -15,7 +15,7 @@ functional music player. My application will do the following:
 - simple ui, easy to access
 - be able to shuffle the song within the playlist
 - a visual to show what song is currently playing
-- my love for music and the Spotify application inspired me to create
+- my love for music and the everyday use of the Spotify application inspired me to create
 something similar and to play user-created playlists
 
 ## User Stories
@@ -38,4 +38,10 @@ when the song's artist name length given is not a reasonable length and also whe
 created called SetSongException gets thrown in the constructor of the class song when the requirements of my if statements are met.
 
 ## Phase 4: Task 3
+
+If I had more time to work on my project, I would have made my GUI a lot more neater and would have probably included the 
+images for the song album everytime the song plays. The picture would then switch whenever the next song is played. Another thing
+I would change is my action command if statements because they are really long in this current version.
+I would make them switch statements if I had more time because switch statements are the same as if-else statements
+but are visually cleaner. I only found out about switch statements near the end of my project.
 
