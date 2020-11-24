@@ -2,6 +2,7 @@ package model;
 
 // followed the AccountTest example format to guide my way through tests
 
+import exception.SetSongException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class SongTest {
     private Song testSong3;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SetSongException {
         testSong1 = new Song("ILLENIUM", "Nightlight", false);
         testSong2 = new Song("ARMNHMR", "Here With Me", true);
         testSong3 = new Song("Dabin", "Rings & Roses", true);

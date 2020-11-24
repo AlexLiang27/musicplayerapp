@@ -1,5 +1,6 @@
 package persistence;
 
+import exception.SetSongException;
 import model.Playlist;
 import model.Song;
 
@@ -41,13 +42,13 @@ class JsonWriterTest extends JsonTest {
 
 
             assertEquals(0, pl.size());
-        } catch (IOException e) {
+        } catch (IOException | SetSongException e) {
             fail("Exception should not have been thrown");
         }
     }
 
     @Test
-    void testWriterPlaylist() {
+    void testWriterPlaylist() throws SetSongException {
         try {
             Playlist pl = new Playlist("playlist");
             pl.addSongToPlaylist(new Song("ILLENIUM", "Nightlight", true));

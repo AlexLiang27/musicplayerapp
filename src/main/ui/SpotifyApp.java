@@ -6,6 +6,7 @@ package ui;
 //https://examples.javacodegeeks.com/desktop-java/swing/jbutton/set-action-command-for-jbutton/ for actionevent
 
 
+import exception.SetSongException;
 import model.Audio;
 import model.Playlist;
 import model.Song;
@@ -72,7 +73,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
 
 
     //EFFECTS: runs the Spotify application and creates the main frame
-    public SpotifyApp() throws FileNotFoundException {
+    public SpotifyApp() throws FileNotFoundException, SetSongException {
         init();
 
         window = new JFrame("Spotify");
@@ -269,7 +270,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
 
     //MODIFIES: this
     //EFFECTS: initializes songs and playlist at the beginning of running this program
-    private void init() {
+    private void init() throws SetSongException {
         currentAudio = new Audio();
         myPlaylist = new Playlist("mine");
         mySong1 = new Song("ILLENIUM", "Nightlight", true);
@@ -510,7 +511,7 @@ public class SpotifyApp extends JFrame implements ActionListener {
             label2.setText("");
             currentAudio.setCurrentAudioStream(SongFileRead.readFile("./data/"
                     + myPlaylist.getCurrentSong().getSongName() + ".wav"));
-        } catch (IOException e) {
+        } catch (IOException | SetSongException e) {
             JOptionPane.showMessageDialog(null, "File Not Found",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }

@@ -1,6 +1,7 @@
 package persistence;
 
 
+import exception.SetSongException;
 import model.Song;
 import model.Playlist;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ class JsonReaderTest extends JsonTest {
         try {
             Playlist pl = reader.read();
             fail("IOException expected");
-        } catch (IOException e) {
+        } catch (IOException | SetSongException e) {
             // pass
         }
     }
@@ -31,7 +32,7 @@ class JsonReaderTest extends JsonTest {
         try {
             Playlist pl = reader.read();
             assertEquals(0, pl.size());
-        } catch (IOException e) {
+        } catch (IOException | SetSongException e) {
             fail("Couldn't read from file");
         }
     }
@@ -44,7 +45,7 @@ class JsonReaderTest extends JsonTest {
             assertEquals(2, pl.size());
             checkSong("ILLENIUM", "Nightlight", true, pl.getSongInPlaylist(0));
             checkSong("Nurko", "Better Off Lonely", true, pl.getSongInPlaylist(1));
-        } catch (IOException e) {
+        } catch (IOException | SetSongException e) {
             fail("Couldn't read from file");
         }
     }

@@ -4,6 +4,7 @@ package model;
 // followed the AccountTest example format to guide my way through tests
 
 
+import exception.SetSongException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ public class PlaylistTest {
 
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SetSongException {
         testPlaylist = new Playlist("liked");
         testEmptyPlaylist = new Playlist("empty");
 

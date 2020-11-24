@@ -1,6 +1,7 @@
 package persistence;
 
 
+import exception.SetSongException;
 import model.Playlist;
 import model.Song;
 import org.json.JSONArray;
@@ -24,7 +25,7 @@ public class JsonReader {
 
     // EFFECTS: reads playlist from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public Playlist read() throws IOException {
+    public Playlist read() throws IOException, SetSongException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parsePlaylist(jsonObject);
@@ -44,7 +45,7 @@ public class JsonReader {
 
 
     // EFFECTS: parses playlist from JSON object and returns it
-    private Playlist parsePlaylist(JSONObject jsonObject) {
+    private Playlist parsePlaylist(JSONObject jsonObject) throws SetSongException {
         String name = jsonObject.getString("name");
         Playlist pl = new Playlist(name);
         addSongs(pl, jsonObject);
@@ -55,7 +56,7 @@ public class JsonReader {
 
     // MODIFIES: pl
     // EFFECTS: parses songs from JSON object and adds them to playlist
-    private void addSongs(Playlist pl, JSONObject jsonObject) {
+    private void addSongs(Playlist pl, JSONObject jsonObject) throws SetSongException {
         JSONArray jsonArray = jsonObject.getJSONArray("songs");
         for (Object json : jsonArray) {
             JSONObject nextSong = (JSONObject) json;
@@ -65,7 +66,7 @@ public class JsonReader {
 
     // MODIFIES: pl
     // EFFECTS: parses song from JSON object and adds it to playlist
-    private void addSong(Playlist pl, JSONObject jsonObject) {
+    private void addSong(Playlist pl, JSONObject jsonObject) throws SetSongException {
         String artist = jsonObject.getString("artist");
         String songName = jsonObject.getString("songName");
         boolean isSongOver = jsonObject.getBoolean("isSongOver");
