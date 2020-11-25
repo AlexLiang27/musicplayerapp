@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SongTest {
@@ -14,12 +16,29 @@ public class SongTest {
     private Song testSong1;
     private Song testSong2;
     private Song testSong3;
+    private Song testBadSong1;
+    private Song testBadSong2;
 
     @BeforeEach
-    void setUp() throws SetSongException {
-        testSong1 = new Song("ILLENIUM", "Nightlight", false);
-        testSong2 = new Song("ARMNHMR", "Here With Me", true);
-        testSong3 = new Song("Dabin", "Rings & Roses", true);
+    void setUp() {
+        try {
+            testSong1 = new Song("ILLENIUM", "Nightlight", false);
+            testSong2 = new Song("ARMNHMR", "Here With Me", true);
+            testSong3 = new Song("Dabin", "Rings & Roses", true);
+        } catch (Exception e) {
+            fail("Good song");
+        }
+        try {
+            testBadSong1 = new Song("", "Nightlight", true);
+            fail("Bad song");
+        } catch (SetSongException e) {
+        }
+        try {
+            testBadSong2 = new Song("Dabin", "", true);
+            fail("Bad song");
+        } catch (SetSongException e) {
+        }
+
     }
 
     @Test

@@ -46,3 +46,6 @@ I would make them switch statements if I had more time because switch statements
 but are visually cleaner. I only found out about switch statements near the end of my project. Lastly, another thing
 I would add to my project is having multiple playlists.
 
+In terms of design, I would make most if not all my classes more robust so it doesn't have to require anything. This would mean
+including exceptions into my methods and my tests. 
+
